@@ -10,7 +10,7 @@
 }
 
 a,button:hover {
-  cursor: url(../../images/pointer.png) 10 1, default;
+  cursor: url(../../images/pointer.svg) 10 1, default;
   opacity: .7;
 }
 

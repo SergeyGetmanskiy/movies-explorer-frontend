@@ -2,8 +2,8 @@
   margin: 0;
   padding: 0;
   border: 0;
-  width: 100px;
-  height: 32px;
+  min-width: 100px;
+  min-height: 32px;
   background-color: inherit;
   background-repeat: no-repeat;
   background-position: center;

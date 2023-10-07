@@ -2,10 +2,9 @@
   margin: 0;
   padding: 0;
   border: 0;
-  width: 38px;
-  height: 38px;
-  background-color: inherit;
+  min-width: 38px;
+  min-height: 38px;
   background-image: url(../../../../images/logo.svg);
+  background-color: inherit;
   background-repeat: no-repeat;
-  background-position: center;
 }
