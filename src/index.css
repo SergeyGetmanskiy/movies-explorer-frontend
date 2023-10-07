@@ -1,0 +1,23 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+@import url(./components/App/App.css);
+
+@import url(./components/UI/Buttons/ButtonText/ButtonText.css);
+@import url(./components/UI/Buttons/ButtonNavigation/ButtonNavigation.css);
+@import url(./components/UI/Buttons/ButtonLogo/ButtonLogo.css);
+@import url(./components/UI/Buttons/ButtonSignin/ButtonSignin.css);
+@import url(./components/UI/Buttons/ButtonProfile/ButtonProfile.css);
+
+@import url(./components/Header/Header.css);
+
+@import url(./components/Main/Main.css);
+@import url(./components/Main/Promo/Promo.css);
+@import url(./components/Main/NavTab/NavTab.css);
+@import url(./components/Main/AboutProject/AboutProject.css);
+@import url(./components/Main/Techs/Techs.css);
+@import url(./components/Main/AboutMe/AboutMe.css);
+@import url(./components/Main/Portfolio/Portfolio.css);
+
+@import url(./components/Footer/Footer.css);
+

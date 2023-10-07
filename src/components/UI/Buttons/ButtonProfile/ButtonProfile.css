@@ -1,0 +1,10 @@
+.button-profile {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 100px;
+  height: 32px;
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-position: center;
+}

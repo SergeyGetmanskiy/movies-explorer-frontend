@@ -1,0 +1,27 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
+  background-color: #202020;
+  color: #fff;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+}
+
+a,button:hover {
+  cursor: url(../../images/pointer.png) 10 1, default;
+  opacity: .7;
+}
+
+@media (max-width: 768px) {
+  .app {
+      max-width: 768px;
+  }
+}
+
+@media (max-width: 424px) {
+  .app {
+      max-width: 320px;
+  }
+}

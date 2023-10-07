@@ -1,0 +1,11 @@
+.button-logo {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  width: 38px;
+  height: 38px;
+  background-color: inherit;
+  background-image: url(../../../../images/logo.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+}
