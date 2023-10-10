@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   height: 74px;
-  background-color: #073042;
+  background-color: inherit;
 }
 
 .navigation__button-navigation {
@@ -17,25 +17,17 @@
   margin-left: 0;
 }
 
+.navigation__button-navigation_active {
+  font-weight: 500;
+}
+
 .navigation__button-profile {
   margin-left: auto;
-  background-image: url(../../images/profile.svg);
 }
 
 @media (max-width: 768px) {
   .navigation__button-navigation {
     display: none;
   }
-  .navigation__button-profile {
-    min-width: 44px;
-    min-height: 44px;
-    background-image: url(../../images/burger_menu.svg);
-  }
 }
 
-@media (max-width: 424px) {
-  .navigation__button-profile {
-    min-width: 40px;
-    min-height: 43px;
-  }
-}

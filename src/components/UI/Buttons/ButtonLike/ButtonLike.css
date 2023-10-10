@@ -1,0 +1,18 @@
+.button-like {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 30px;
+  min-height: 30px;
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.button-like_active {
+  background-image: url(../../../../images/like_active.svg);
+}
+
+.button-like_disabled {
+  background-image: url(../../../../images/like_disabled.svg);
+}

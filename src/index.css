@@ -8,6 +8,8 @@
 @import url(./components/UI/Buttons/ButtonLogo/ButtonLogo.css);
 @import url(./components/UI/Buttons/ButtonSignin/ButtonSignin.css);
 @import url(./components/UI/Buttons/ButtonProfile/ButtonProfile.css);
+@import url(./components/UI/Buttons/ButtonLike/ButtonLike.css);
+@import url(./components/UI/Buttons/ButtonDelete/ButtonDelete.css);
 
 @import url(./components/Header/Header.css);
 
@@ -20,6 +22,15 @@
 @import url(./components/Main/Techs/Techs.css);
 @import url(./components/Main/AboutMe/AboutMe.css);
 @import url(./components/Main/Portfolio/Portfolio.css);
+
+@import url(./components/Movies/Movies.css);
+@import url(./components/Movies/SearchForm/FilterCheckbox/FilterCheckbox.css);
+@import url(./components/Movies/SearchForm/SearchForm.css);
+@import url(./components/Movies/Preloader/Preloader.css);
+@import url(./components/Movies/MoviesCardList/MoviesCardList.css);
+@import url(./components/Movies/MoviesCard/MoviesCard.css);
+@import url(./components/Movies/MoviesMore/MoviesMore.css);
+@import url(./components/SavedMovies/SavedMovies.css);
 
 @import url(./components/Footer/Footer.css);
 

@@ -1,0 +1,30 @@
+.movies-more {
+  display: flex;
+  min-height: 166px;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: inherit;
+}
+
+.movies-more__button {
+  width: 100%;
+  margin: 0;
+  margin-bottom: 80px;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  min-height: 34px;
+  background-color: #2F2F2F;
+  background-repeat: no-repeat;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.21;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .movies-more__button {
+    min-height: 36px;
+  }
+}

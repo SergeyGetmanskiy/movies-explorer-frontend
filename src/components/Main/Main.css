@@ -7,21 +7,6 @@
   background-color: inherit;
 }
 
-.text {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-family: 'Inter', 'Arial', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  color: #fff;
-  text-align: left;
-}
-
-.text_narrow {
-  letter-spacing: -.04em;
-}
-
 .section__heading {
   margin-bottom: 23px;
   font-size: 22px;
@@ -32,7 +17,10 @@
   margin: 0;
   padding: 0;
   width: 100%;
-  border: 1px solid #DADADA;
+  border-width: 0;
+  border-top: 1px;
+  border-style: solid;
+  border-color:  #DADADA;
 }
 
 @media (max-width: 424px) {
