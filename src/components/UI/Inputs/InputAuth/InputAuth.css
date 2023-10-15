@@ -1,0 +1,69 @@
+.input-auth__container {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  row-gap: 10px;
+}
+
+.input-auth__title {
+  width: 100%;
+  text-align: start;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.21;
+  color: #8B8B8B;
+
+}
+
+.input-auth__input {
+  width: 100%;
+  height: 46px;
+  border: none;
+  border-radius: 8px;
+  text-align: start;
+  text-indent: 15px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.21;
+  background-color: #2F2F2F;
+  color: #fff;
+}
+
+.input-auth__input_invalid {
+  color: #EE3465;
+}
+
+.input-auth__input:focus {
+outline: none;
+}
+
+.input-auth__error {
+  visibility: hidden;
+  width: 100%;
+  height: 12px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.21;
+  color: #EE3465;
+}
+
+.input-auth__error_visible {
+  visibility: visible;
+}
+
+@media (max-width: 768px) {
+  .input-auth__container {
+
+
+  }
+}
+
+@media (max-width: 424px) {
+  .input-auth__container {
+
+  }
+}

@@ -1,0 +1,9 @@
+.api-error-message {
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.21;
+  word-break: break-all;
+  color: #FF004C;
+}

@@ -1,0 +1,11 @@
+.button-close {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 22px;
+  min-height: 22px;
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../../../../images/close_button.svg);
+}

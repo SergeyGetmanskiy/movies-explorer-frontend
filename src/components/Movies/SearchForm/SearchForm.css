@@ -35,6 +35,10 @@
   color: #fff;
 }
 
+.search-form__search-field:focus {
+  outline: none;
+  }
+
 .search-form__button {
   position: absolute;
   right: 6px;
