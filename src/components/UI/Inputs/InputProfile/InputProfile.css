@@ -29,7 +29,7 @@
 }
 
 .input-edit-profile__input:focus {
-outline: none;
+  outline: none;
 }
 
 .input-edit-profile__error {
