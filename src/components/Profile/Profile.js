@@ -7,7 +7,7 @@ import ApiErrorMessage from "../UI/ApiErrorMessage/ApiErrorMessage";
 
 export default function Profile({ onSignout }) {
 
-  const [ isInputReadOnly, setIsInputReadOnly ] = useState(true);
+  const [ isInputDisabled, setIsInputDisabled ] = useState(true);
 
   const [ name, setName ] = useState("Виталий");
   const [ email, setEmail ] = useState("pochta@yandex.ru");
@@ -18,7 +18,7 @@ export default function Profile({ onSignout }) {
   const [ errorMessage, setErrorMessaged ] = useState("При обновлении профиля произошла ошибка.");
 
   function handleEditClick() {
-    setIsInputReadOnly(false);
+    setIsInputDisabled(false);
   }
 
   function handleSubmit(e) {
@@ -26,7 +26,7 @@ export default function Profile({ onSignout }) {
   }
 
   return (
-    <div className="profile">
+    <main className="profile">
       <div className="profile__container">
         <h1 className="text profile__heading">Привет, Виталий!</h1>
         <InputProfile
@@ -42,7 +42,7 @@ export default function Profile({ onSignout }) {
           setValue={setName}
           setIsInputValid={setIsNameInputValid}
           isInputValid={isNameInputValid}
-          isInputReadOnly={isInputReadOnly}
+          isInputDisabled={isInputDisabled}
         />
         <hr className="profile__horizontal-line"></hr>
         <InputProfile
@@ -56,14 +56,14 @@ export default function Profile({ onSignout }) {
           setValue={setEmail}
           setIsInputValid={setIsEmailInputValid}
           isInputValid={isEmailInputValid}
-          isInputReadOnly={isInputReadOnly}
+          isInputDisabled={isInputDisabled}
         />
-        { isInputReadOnly &&
+        { isInputDisabled &&
           <ButtonText className={`profile__edit-button`}
                       buttonTitle={"Редактировать"}
                       onClick={ handleEditClick } />
         }
-        { isInputReadOnly ?
+        { isInputDisabled ?
           <ButtonText className={`profile__signout-button`}
                       buttonTitle={"Выйти из аккаунта"}
                       onClick={ onSignout } />
@@ -76,6 +76,6 @@ export default function Profile({ onSignout }) {
           </ButtonBar>
         }        
       </div>
-    </div>
+    </main>
   )
 } 

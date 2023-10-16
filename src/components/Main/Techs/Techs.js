@@ -1,8 +1,8 @@
 export default function Techs() {
   return (
     <section className="techs" id="techs">
-      <h2 className="text text_narrow section__heading">Технологии</h2>
-      <hr className="section__horizontal-line techs__horizontal-line" />
+      <h2 className="text text_narrow heading">Технологии</h2>
+      <hr className="horizontal-line techs__horizontal-line" />
       <h3 className="text text_narrow techs__feature-heading">7 технологий</h3>
       <p className="text text_narrow techs__feature-description">На курсе веб-разработки мы освоили технологии,
                                                                  которые применили в дипломном проекте.</p>

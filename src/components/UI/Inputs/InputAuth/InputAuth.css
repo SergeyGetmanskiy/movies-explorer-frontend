@@ -1,4 +1,4 @@
-.input-auth__container {
+.input-auth {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -33,12 +33,12 @@
   color: #fff;
 }
 
-.input-auth__input_invalid {
-  color: #EE3465;
+.input-auth__input:focus {
+  outline: #4285F4 solid 1px;
 }
 
-.input-auth__input:focus {
-outline: none;
+.input-auth__input_invalid {
+  color: #EE3465;
 }
 
 .input-auth__error {
@@ -53,17 +53,4 @@ outline: none;
 
 .input-auth__error_visible {
   visibility: visible;
-}
-
-@media (max-width: 768px) {
-  .input-auth__container {
-
-
-  }
-}
-
-@media (max-width: 424px) {
-  .input-auth__container {
-
-  }
 }

@@ -76,6 +76,17 @@
   }
 }
 
+@media (max-width: 640px) {
+  .techs__tech-list {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 84px);
+    grid-template-rows: auto;
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+}
+
 @media (max-width: 424px) {
   .techs {
     min-height: 651px;

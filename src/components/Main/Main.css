@@ -7,13 +7,13 @@
   background-color: inherit;
 }
 
-.section__heading {
+.heading {
   margin-bottom: 23px;
   font-size: 22px;
   line-height: 1.21;
 }
 
-.section__horizontal-line {
+.horizontal-line {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -24,7 +24,7 @@
 }
 
 @media (max-width: 424px) {
-  .section__heading {
+  .heading {
     margin-bottom: 28px;
     font-size: 18px;
     line-height: 1.21;

@@ -29,6 +29,7 @@
 
 .portfolio__link {
   display: flex;
+  position: relative;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -58,7 +59,10 @@
   line-height: 2;
 }
 
-.section__horizontal-line_place_portfolio {
+.horizontal-line_place_portfolio {
+  position: absolute;
+  line-height: 1px;
+  bottom: -20px;
   border: 1px solid #424242;
 }
 
@@ -79,7 +83,7 @@
     line-height: 2.14;
     padding-top: 10px;
   }
-  .section__horizontal-line_place_portfolio {
+  .horizontal-line_place_portfolio {
     border: 1px solid #E6E6E6;
   }
 }

@@ -5,7 +5,7 @@
   justify-content: flex-end;
   align-items: center;
   background-color: inherit;
-}
+} 
 
 .search-form__input {
   width: 100%;
@@ -36,7 +36,7 @@
 }
 
 .search-form__search-field:focus {
-  outline: none;
+  outline: #4285F4 solid 1px;
   }
 
 .search-form__button {
@@ -101,12 +101,15 @@
 }
 
 @media (max-width: 424px) {
-  .search-form__input {
-    width: 292px;
-  }
   .search-form__search-field {
     text-indent: 19px;
     font-size: 11px;
     line-height: 1.55;
+  }
+}
+
+@media (max-width: 320px) {
+  .search-form__input {
+    max-width: 292px;
   }
 }

@@ -1,7 +1,6 @@
 .app {
   display: flex;
   flex-direction: column;
-  max-width: 1280px;
   margin: 0 auto;
   background-color: #202020;
   color: #fff;
@@ -33,16 +32,4 @@ input[type='checkbox']+label:hover {
 
 .text_narrow {
   letter-spacing: -.04em;
-}
-
-@media (max-width: 768px) {
-  .app {
-      max-width: 768px;
-  }
-}
-
-@media (max-width: 424px) {
-  .app {
-      max-width: 320px;
-  }
 }

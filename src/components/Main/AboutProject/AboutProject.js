@@ -1,8 +1,8 @@
 export default function AboutProject() {
   return (
     <section className="about-project" id="about-project">
-      <h2 className="text text_narrow section__heading">О проекте</h2>
-      <hr className="section__horizontal-line" />
+      <h2 className="text text_narrow heading">О проекте</h2>
+      <hr className="horizontal-line" />
       <div className="about-project__features">
         <div className="about-project__feature">
           <h3 className="text text_narrow about-project__feature-heading">Дипломный проект включал 5 этапов</h3>

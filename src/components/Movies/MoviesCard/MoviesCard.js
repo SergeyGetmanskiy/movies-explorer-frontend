@@ -20,7 +20,7 @@ export default function MoviesCard({ card, pathname }) {
         <h2 className="text card__title">{ card.title }</h2>
         { pathname === "/movies" && <ButtonLike className="card__like" isLiked={isLiked} /> }
         { pathname === "/saved-movies" && <ButtonDelete className="card__delete-button" /> }
-        <output className="card__duration" id="duration">{ card.duration }</output>
+        <output className="card__duration">{ card.duration }</output>
       </div>
     </div>
   )

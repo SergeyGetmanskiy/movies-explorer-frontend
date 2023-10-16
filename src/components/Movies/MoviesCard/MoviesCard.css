@@ -4,6 +4,7 @@
   align-items: center;
   justify-content: center;
   background-color: #222222;
+  border-radius: 0 0 6px 6px;
 }
 
 .card:hover {

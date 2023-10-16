@@ -15,7 +15,7 @@ export default function Auth({ authHeading,
                                children }) {
 
   return (
-    <div className="auth">
+    <main className="auth">
       <div className="auth__container">
         <ButtonLogo className={"auth__button-logo"} onClick={ onLogo } />
         <h1 className="text auth__heading">{ authHeading }</h1>
@@ -28,6 +28,6 @@ export default function Auth({ authHeading,
           <ButtonText className={`auth__button-text`} buttonTitle={ textButtonTitle } onClick={ onTextButton } />
         </div>
       </div>
-    </div>
+    </main>
   )
 } 

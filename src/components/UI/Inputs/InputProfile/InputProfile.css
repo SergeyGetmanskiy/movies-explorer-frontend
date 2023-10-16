@@ -1,4 +1,4 @@
-.input-edit-profile__container {
+.input-edit-profile {
   position: relative;
   margin: 0;
   padding: 0;
@@ -29,7 +29,8 @@
 }
 
 .input-edit-profile__input:focus {
-  outline: none;
+  outline: #4285F4 solid 1px;
+  outline-offset: 10px;
 }
 
 .input-edit-profile__error {
@@ -48,16 +49,10 @@
 }
 
 @media (max-width: 840px) {
-  .input-edit-profile__container {
+  .input-edit-profile {
     max-height: 46px;
   }
   .input-edit-profile__error {
     max-width: 150px;
-  }
-}
-
-@media (max-width: 424px) {
-  .input-edit-profile__container {
-
   }
 }

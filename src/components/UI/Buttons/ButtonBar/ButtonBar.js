@@ -4,9 +4,9 @@ export default function ButtonBar({ className,
                                     isButtonActive,
                                     children }) {
   return (
-    <div className={`button-bar__container ${ className }`}>
+    <div className={`button-bar ${ className }`}>
       { children }
-      <button className={`button-bar ${ !isButtonActive && "button-bar_disabled" }`} 
+      <button className={`button-bar__button ${ !isButtonActive && "button-bar__button_disabled" }`} 
         type="button"
         onClick={ onClick }
         disabled={ !isButtonActive }

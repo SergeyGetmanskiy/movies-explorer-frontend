@@ -3,8 +3,8 @@ import avatar from '../../../images/avatar.jpg'
 export default function AboutMe() {
   return (
     <section className="about-me" id="about-me">
-      <h2 className="text text_narrow section__heading">Студент</h2>
-      <hr className="section__horizontal-line" />
+      <h2 className="text text_narrow heading">Студент</h2>
+      <hr className="horizontal-line" />
       <div className="about-me__container">
         <div className="about-me__text">
           <p className="text text_narrow about-me__name">Сергей</p>

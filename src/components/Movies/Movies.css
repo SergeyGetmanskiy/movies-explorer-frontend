@@ -22,4 +22,9 @@
   .movies__container {
     padding: 0 10px;
   }
+  .movies__devider {
+    display: block;
+    width: 100%;
+    height: 140px;
+  }
 }

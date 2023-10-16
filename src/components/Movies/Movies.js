@@ -16,12 +16,12 @@ export default function Movies({ cards,
 }, []); 
 
   return (
-    <div className="movies">
+    <main className="movies">
       <div className="movies__container">
         <SearchForm />
         { isLoading ? <Preloader /> : <MoviesCardList cards={ cards }/> }
         <MoviesMore />
       </div>
-    </div>
+    </main>
   )
 } 

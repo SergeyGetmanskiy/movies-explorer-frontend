@@ -31,7 +31,7 @@ export default function InputAuth({ name,
   }
 
   return (
-    <div className="input-auth__container">
+    <div className="input-auth">
       <h3 className="text input-auth__title">{ placeholder }</h3>
       <input
         className={`input-auth__input ${ !isInputValid && "input-auth__input_invalid" }`}
