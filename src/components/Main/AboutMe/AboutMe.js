@@ -16,7 +16,9 @@ export default function AboutMe() {
                                                     веб-приложение любой сложности практически с чистого листа.</p>
           <p className="text  about-me__github">Github</p>
         </div>        
-        <img className="about-me__avatar" src={ avatar } alt="Аватарка" />
+        <div className="about-me__avatar-container">
+          <img className="about-me__avatar" src={ avatar } alt="Аватарка" />
+        </div>
       </div>
     </section>
   )

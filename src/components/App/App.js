@@ -73,7 +73,7 @@ function App() {
                 onSavedMovies={ handleSavedMoviesClick }  
                 onProfile={ handleProfileClick }
                 onRegister={ handleSignupClick }
-                onSignin={ handleSigninClick }      
+                onSignin={ handleSigninClick }     
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
