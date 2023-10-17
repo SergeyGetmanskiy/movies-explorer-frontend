@@ -1,0 +1,36 @@
+.button-bar {
+  width: 100%;
+  height: 114px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.button-bar__button {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  width: 100%;
+  height: 45px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.21;
+  text-align: center;
+  background-color: #3456F3;
+  color: #fff;
+}
+
+.button-bar__button_disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+}
+
+@media (max-width: 424px) {
+  .button-bar__button {
+    font-size: 12px;
+  }
+}

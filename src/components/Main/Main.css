@@ -1,0 +1,32 @@
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: inherit;
+}
+
+.heading {
+  margin-bottom: 23px;
+  font-size: 22px;
+  line-height: 1.21;
+}
+
+.horizontal-line {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  border-width: 0;
+  border-top: 1px;
+  border-style: solid;
+  border-color:  #DADADA;
+}
+
+@media (max-width: 424px) {
+  .heading {
+    margin-bottom: 28px;
+    font-size: 18px;
+    line-height: 1.21;
+  }
+}

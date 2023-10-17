@@ -1,0 +1,52 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/fonts.css);
+
+@import url(./components/App/App.css);
+
+@import url(./components/UI/Buttons/ButtonText/ButtonText.css);
+@import url(./components/UI/Buttons/ButtonNavigation/ButtonNavigation.css);
+@import url(./components/UI/Buttons/ButtonLogo/ButtonLogo.css);
+@import url(./components/UI/Buttons/ButtonSignin/ButtonSignin.css);
+@import url(./components/UI/Buttons/ButtonProfile/ButtonProfile.css);
+@import url(./components/UI/Buttons/ButtonLike/ButtonLike.css);
+@import url(./components/UI/Buttons/ButtonDelete/ButtonDelete.css);
+@import url(./components/UI/Buttons/ButtonBar/ButtonBar.css);
+@import url(./components/UI/Buttons/ButtonClose/ButtonClose.css);
+
+@import url(./components/UI/Inputs/InputProfile/InputProfile.css);
+@import url(./components/UI/Inputs/InputAuth/InputAuth.css);
+
+@import url(./components/UI/ApiErrorMessage/ApiErrorMessage.css);
+
+@import url(./components/Header/Header.css);
+
+@import url(./components/Navigation/Navigation.css);
+
+@import url(./components/NavigationPopup/NavigationPopup.css);
+
+@import url(./components/Main/Main.css);
+@import url(./components/Main/Promo/Promo.css);
+@import url(./components/Main/NavTab/NavTab.css);
+@import url(./components/Main/AboutProject/AboutProject.css);
+@import url(./components/Main/Techs/Techs.css);
+@import url(./components/Main/AboutMe/AboutMe.css);
+@import url(./components/Main/Portfolio/Portfolio.css);
+
+@import url(./components/Movies/Movies.css);
+@import url(./components/Movies/SearchForm/FilterCheckbox/FilterCheckbox.css);
+@import url(./components/Movies/SearchForm/SearchForm.css);
+@import url(./components/Movies/Preloader/Preloader.css);
+@import url(./components/Movies/MoviesCardList/MoviesCardList.css);
+@import url(./components/Movies/MoviesCard/MoviesCard.css);
+@import url(./components/Movies/MoviesMore/MoviesMore.css);
+
+@import url(./components/SavedMovies/SavedMovies.css);
+
+@import url(./components/Profile/Profile.css);
+
+@import url(./components/Auth/Auth.css);
+
+@import url(./components/PageNotFound/PageNotFound.css);
+
+@import url(./components/Footer/Footer.css);
+

@@ -1,0 +1,11 @@
+.button-text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.21;
+  text-align: center;
+  background-color: inherit;
+  color: inherit;
+}

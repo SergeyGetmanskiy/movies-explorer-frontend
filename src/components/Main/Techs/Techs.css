@@ -1,0 +1,116 @@
+.techs {
+  width: 100%;
+  min-height: 625px;
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  background-color: #272727;
+}
+
+.techs__feature-heading {
+  margin-top: 90px;
+  margin-bottom: 26px;
+  text-align: center;
+  font-size: 50px;
+  line-height: 1.16;
+}
+
+.techs__feature-description {
+  display: flex;
+  max-width: 460px;
+  align-self: center;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.techs__tech-list {
+  margin: 0;
+  margin-top: 100px;
+  padding: 0;
+  border: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
+}
+
+.techs__tech-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  width: 90px;
+  height: 60px;
+  line-height: 1.21;
+  background-color: #303030;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+@media (max-width: 768px) {
+  .techs {
+    min-height: 567px;
+    padding: 0 50px;
+  }
+  .techs__feature-heading {
+    margin-top: 80px;
+    margin-bottom: 22px;
+  }
+  .techs__feature-description {
+    font-size: 12px;
+  }
+  .techs__tech-list {
+    margin-top: 83px;
+  }
+  .techs__tech-item {
+    width: 84px;
+    height: 57px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .techs__tech-list {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 84px);
+    grid-template-rows: auto;
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+}
+
+@media (max-width: 424px) {
+  .techs {
+    min-height: 651px;
+    padding: 0 18px;
+  }
+  .techs__horizontal-line {
+    border: 1px solid #000;
+  }
+  .techs__feature-heading {
+    margin-top: 60px;
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 1.21;
+  }
+  .techs__feature-description {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+  .techs__tech-list {
+    margin-top: 50px;
+    display: grid;
+    grid-template-columns: repeat(2, 84px);
+    grid-template-rows: auto;
+    column-gap: 10px;
+    row-gap: 10px;
+  }
+}

@@ -1,0 +1,30 @@
+.movies {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.movies__container {
+  padding: 0 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  background-color: inherit;
+}
+
+@media (max-width: 900px) {
+  .movies__container {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 424px) {
+  .movies__container {
+    padding: 0 10px;
+  }
+  .movies__devider {
+    display: block;
+    width: 100%;
+    height: 140px;
+  }
+}
