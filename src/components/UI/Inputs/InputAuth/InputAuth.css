@@ -6,11 +6,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  row-gap: 10px;
 }
 
 .input-auth__title {
   width: 100%;
+  margin-bottom: 10px;
   text-align: start;
   font-weight: 400;
   font-size: 10px;
@@ -42,12 +42,14 @@
 }
 
 .input-auth__error {
+  display: flex;
   visibility: hidden;
   width: 100%;
-  height: 12px;
+  height: 20px;
   font-weight: 400;
   font-size: 10px;
-  line-height: 1.21;
+  line-height: 1;
+  align-items: flex-end;
   color: #EE3465;
 }
 

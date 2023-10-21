@@ -12,6 +12,14 @@
   background-color: inherit;
 }
 
+.movies__error {
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.21;
+  color: #EE3465;
+}
+
 @media (max-width: 900px) {
   .movies__container {
     padding: 0 30px;

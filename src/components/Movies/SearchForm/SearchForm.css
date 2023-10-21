@@ -35,6 +35,8 @@
   color: #fff;
 }
 
+
+
 .search-form__search-field:focus {
   outline: #4285F4 solid 1px;
   }
@@ -50,6 +52,21 @@
   background-image: url(../../../images/search-form_button.svg);
   background-color: inherit;
   background-repeat: no-repeat;
+}
+
+.search-form__error {
+  visibility: hidden;
+  position: absolute;
+  top: 60px;
+  height: 12px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.21;
+  color: #EE3465;
+}
+
+.search-form__error_visible {
+  visibility: visible;
 }
 
 .search-form__toggle {

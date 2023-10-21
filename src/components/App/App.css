@@ -19,6 +19,11 @@ input[type='checkbox']+label:hover {
   opacity: .7;
 }
 
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 100px #2F2F2F inset;
+  -webkit-text-fill-color: #fff;
+}
+
 .text {
   margin: 0;
   padding: 0;

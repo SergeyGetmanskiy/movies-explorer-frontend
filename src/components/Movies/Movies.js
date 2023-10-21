@@ -1,5 +1,3 @@
-import { useEffect } from "react"
-
 import SearchForm from "./SearchForm/SearchForm"
 import Preloader from "./Preloader/Preloader"
 import MoviesCardList from "./MoviesCardList/MoviesCardList"
@@ -7,19 +5,20 @@ import MoviesMore from "./MoviesMore/MoviesMore"
 
 export default function Movies({ cards,
                                  isLoading,
-                                 setIsLoading }) {
+                                 isFound,
+                                 setQuery }) {                           
 
-  useEffect(() => { 
-    setTimeout(() => { 
-        setIsLoading(false); 
-    }, 5000); 
-}, []); 
+  const nothingFoundErrorMessage = "Ничего не найдено";
+  const serverErrorMessage = "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз";
+  
+  console.log(isFound);
 
   return (
     <main className="movies">
       <div className="movies__container">
-        <SearchForm />
+        <SearchForm setQuery={ setQuery } />
         { isLoading ? <Preloader /> : <MoviesCardList cards={ cards }/> }
+        { isFound ? null : <span className="text movies__error">{nothingFoundErrorMessage}</span>  }
         <MoviesMore />
       </div>
     </main>

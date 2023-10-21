@@ -64,7 +64,7 @@ export default function Register({ onLogo, onSignin }) {
         required={ true }
         minLength={8}
         value={ password }
-        pattern="^[A-Za-z0-9]$"
+        pattern="^[A-Za-z0-9]*"
         setValue={setPassword}
         setIsInputValid={setIsPasswordInputValid}
         isInputValid={ isPasswordInputValid }

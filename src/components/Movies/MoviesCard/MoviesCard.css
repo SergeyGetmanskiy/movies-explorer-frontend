@@ -18,12 +18,15 @@
 .card__top {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
 }
 
 .card__image {
-  max-width: 100%;
-  object-fit: cover;
+  width: 364px;
+  height: 203px;
+  object-fit: contain;
   border-radius: 6px 6px 0 0;
 }
 

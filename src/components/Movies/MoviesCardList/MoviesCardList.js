@@ -7,7 +7,7 @@ export default function MoviesCardList({ cards }) {
   return (
     <ul className={`cards ${ pathname === "/saved-movies" && "cards_on_saved-movies" }`}>  
       {cards.map((card) => (
-        <li key={card._id}>
+        <li key={card.id}>
           <MoviesCard card={card} pathname={ pathname } />
         </li>
       ))}
