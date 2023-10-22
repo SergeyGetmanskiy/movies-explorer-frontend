@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes,
          Route,
          useLocation,
-         useNavigate } from 'react-router-dom';
+         useNavigate } from 'react-router-dom';       
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -12,8 +12,11 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
+import { nothingFoundErrorMessage,
+         serverErrorMessage } from '../../utils/constants'; 
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
+import filterMovies from '../../utils/FilterMovies';
 
 function App() {
 
@@ -34,7 +37,10 @@ function App() {
   const [ movies, setMovies ] = useState([]);
   const [ moviesFound, setMoviesFound ] = useState([]);
 
-  const [ query, setQuery ] = useState('');
+  const [ searchText, setSearchText ] = useState('');
+  const [ isChecked, setIsChecked ] = useState('');
+
+  const [ errorMessage, setErrorMessage ] = useState('');
 
   const navigate = useNavigate();
 
@@ -80,43 +86,42 @@ function App() {
     })  
   }
 
-                                                              // Фильтрация фильмов в соответствии с поисковым запросом
-  function searchMovies(movies, query) {                    
-    const result = movies.filter((movie) => movie.nameRU.includes(query));
-    if(result.length > 0) {
-      setMoviesFound(result);
+  function handleMovieSearch() {
+    const found = filterMovies(movies, searchText, isChecked);
+    if(found.length > 0) {
+      setMoviesFound(found);
       setIsFound(true);
     } else {
       setMoviesFound([]);
       setIsFound(false);
-    };
+      setErrorMessage(nothingFoundErrorMessage);
+    }
   }
-
-                                                              // Загрузка фильмов при первом валидном поисковом запрос
-  useEffect(() => {                                         
-    if((movies.length === 0) && (query.length !== 0)) {
+                                                              
+  useEffect(() => {                                          // Загрузка фильмов и поиск при первом валидном поисковом запросе
+    if((movies.length === 0) && (searchText.length > 0)) {
       setIsLoading(true);
       moviesApi.getMovies()
       .then((movies) => {
         setMovies(movies);
         setIsLoading(false);
-        searchMovies(movies, query);
+        handleMovieSearch();
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
+        setIsFound(false);
+        setErrorMessage(serverErrorMessage);
       });
     }
-  }, [movies, query])
+  }, [movies, searchText, isChecked])
 
-  useEffect(() => {                                         
-    if(movies.length !== 0) {
-      searchMovies(movies, query);
+  useEffect(() => {                                         // Поиск фильмов        
+    if(movies.length > 0) {
+      handleMovieSearch();
     }
-  }, [movies, query])
+  }, [movies, searchText, isChecked])
   
-
-
-
   return (
     <div className="app">
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies" || pathname === "/profile" ) && 
@@ -135,7 +140,9 @@ function App() {
           <Route path="/movies" element={ <Movies cards={ moviesFound }
                                                   isLoading={ isLoading }
                                                   isFound={ isFound }
-                                                  setQuery={ setQuery } /> } 
+                                                  setSearchText={ setSearchText }
+                                                  setIsChecked={ setIsChecked }
+                                                  errorMessage={ errorMessage } /> } 
           />
           <Route path="/saved-movies" element={ <SavedMovies cards={ "" } /> } />
           <Route path="/profile" element={ <Profile onSignout={ handleSignOutClick } /> } />
