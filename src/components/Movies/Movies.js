@@ -30,6 +30,9 @@ export default function Movies() {
     if(found.length > 0) {
       setMoviesFound(found);
       setIsFound(true);
+      localStorage.setItem('movies', JSON.stringify(found));
+      localStorage.setItem('searchText', JSON.stringify(searchText));
+      localStorage.setItem('isChecked', JSON.stringify(isChecked));
       const moviesToDisplay = getMoviesToDisplay(found, moviesDisplayed);
       setMoviesDisplayed(moviesToDisplay.movies);
       setIsMore(moviesToDisplay.isMore);
@@ -45,6 +48,13 @@ export default function Movies() {
     const moviesToDisplay = getMoviesToDisplay(moviesFound, moviesDisplayed);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
+  }
+
+  function handleSearchClick() {
+    setMoviesFound([]);
+    setMoviesDisplayed([]);
+    setIsFound(false);
+    setIsMore(false);
   }
 
                                                               
@@ -64,7 +74,7 @@ export default function Movies() {
         setErrorMessage(serverErrorMessage);
       });
     }
-  }, [movies, searchText, isChecked])
+  }, [movies])
 
   useEffect(() => {                                         // Поиск фильмов        
     if(movies.length > 0) {
@@ -72,12 +82,25 @@ export default function Movies() {
     }
   }, [movies, searchText, isChecked])
 
-  function handleSearchClick() {
-    setMoviesFound([]);
-    setMoviesDisplayed([]);
-    setIsFound(false);
-    setIsMore(false);
-  }
+  useEffect(() => {                                         // Проверка localStorage 
+    const checkLocalStorage = () => {
+      const movies = JSON.parse(localStorage.getItem('movies'));
+      const searchText = JSON.parse(localStorage.getItem('searchText'));
+      const isChecked = JSON.parse(localStorage.getItem('isChecked'));
+      if (movies) {
+        setMoviesFound(movies);
+        setIsFound(true);
+        setSearchText(searchText);
+        setIsChecked(isChecked);
+        const moviesToDisplay = getMoviesToDisplay(movies, moviesDisplayed);
+        setMoviesDisplayed(moviesToDisplay.movies);
+        setIsMore(moviesToDisplay.isMore);
+      }
+    } 
+    checkLocalStorage();
+  }, [])
+
+
 
   return (
     <main className="movies">
