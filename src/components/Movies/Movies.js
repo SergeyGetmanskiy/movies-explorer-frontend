@@ -35,6 +35,7 @@ export default function Movies() {
       setIsMore(moviesToDisplay.isMore);
     } else {
       setMoviesFound([]);
+      setMoviesDisplayed([]);
       setIsFound(false);
       setErrorMessage(nothingFoundErrorMessage);
     }
@@ -71,10 +72,17 @@ export default function Movies() {
     }
   }, [movies, searchText, isChecked])
 
+  function handleSearchClick() {
+    setMoviesFound([]);
+    setMoviesDisplayed([]);
+    setIsFound(false);
+    setIsMore(false);
+  }
+
   return (
     <main className="movies">
       <div className="movies__container">
-        <SearchForm setSearchText={ setSearchText } setIsChecked = { setIsChecked } />
+        <SearchForm onSearch={ handleSearchClick } setSearchText={ setSearchText } setIsChecked = { setIsChecked } />
         { isLoading ? <Preloader /> : <MoviesCardList cards={ moviesDisplayed }/> }
         { isFound ? null : <span className="text movies__error">{errorMessage}</span>  }
         { isMore ? <MoviesMore onClick={ handleClick }  /> : null }
