@@ -16,7 +16,7 @@ export default function Movies() {
   const [ moviesDisplayed, setMoviesDisplayed ] = useState([]);
 
   const [ searchText, setSearchText ] = useState('');
-  const [ isChecked, setIsChecked ] = useState('');
+  const [ isChecked, setIsChecked ] = useState(false);
 
   const [ isLoading, setIsLoading ] = useState(false);
   const [ isFound, setIsFound ] = useState(true); 
@@ -25,17 +25,13 @@ export default function Movies() {
 
   const [ errorMessage, setErrorMessage ] = useState('');
 
-  function handleMovieSearch() {
+  function handleMovieSearch(movies, searchText, isChecked) {     // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
       setMoviesFound(found);
       setIsFound(true);
       localStorage.setItem('movies', JSON.stringify(found));
-      localStorage.setItem('searchText', JSON.stringify(searchText));
-      localStorage.setItem('isChecked', JSON.stringify(isChecked));
-      const moviesToDisplay = getMoviesToDisplay(found, moviesDisplayed);
-      setMoviesDisplayed(moviesToDisplay.movies);
-      setIsMore(moviesToDisplay.isMore);
+      displayMovies(found, moviesDisplayed);
     } else {
       setMoviesFound([]);
       setMoviesDisplayed([]);
@@ -44,28 +40,24 @@ export default function Movies() {
     }
   }
 
-  function handleClick() {                                   // Обработчик по клику "Ещё"
-    const moviesToDisplay = getMoviesToDisplay(moviesFound, moviesDisplayed);
+  function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
+    const moviesToDisplay = getMoviesToDisplay(found, displayed);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
   }
 
-  function handleSearchClick() {
-    setMoviesFound([]);
-    setMoviesDisplayed([]);
-    setIsFound(false);
-    setIsMore(false);
-  }
-
-                                                              
-  useEffect(() => {                                          // Загрузка фильмов и поиск при первом валидном поисковом запросе
-    if((movies.length === 0) && (searchText.length > 0)) {
+ 
+  function handleSearchClick(query) {                        // Обработчик по клику "Поиск"
+    setSearchText(query);
+    localStorage.setItem('searchText', JSON.stringify(query));
+    if(movies.length === 0) {                       
       setIsLoading(true);
-      moviesApi.getMovies()
+      moviesApi.getMovies()                                  // Загрузка фильмов и поиск при первом валидном поисковом запросе
       .then((movies) => {
-        setMovies(movies);
         setIsLoading(false);
-        handleMovieSearch();
+        console.log(query, movies);
+        setMovies(movies);
+        handleMovieSearch(movies, query, isChecked);
       })
       .catch((err) => {
         console.log(err);
@@ -73,14 +65,21 @@ export default function Movies() {
         setIsFound(false);
         setErrorMessage(serverErrorMessage);
       });
+    } else {
+      handleMovieSearch(movies, query, isChecked);
     }
-  }, [movies])
+  }
 
-  useEffect(() => {                                         // Поиск фильмов        
-    if(movies.length > 0) {
-      handleMovieSearch();
-    }
-  }, [movies, searchText, isChecked])
+  function handleCheckBoxClick(checked) {                     // Обработчик по клику чекбокса
+    setIsChecked(checked);
+    localStorage.setItem('isChecked', JSON.stringify(checked));
+    const found = filterMovies(moviesFound, searchText, checked);
+    displayMovies(found, moviesDisplayed);
+  }
+
+  function handleMoreMoviesClick() {                         // Обработчик по клику "Ещё"
+    displayMovies(moviesFound, moviesDisplayed);
+  }
 
   useEffect(() => {                                         // Проверка localStorage 
     const checkLocalStorage = () => {
@@ -88,27 +87,23 @@ export default function Movies() {
       const searchText = JSON.parse(localStorage.getItem('searchText'));
       const isChecked = JSON.parse(localStorage.getItem('isChecked'));
       if (movies) {
-        setMoviesFound(movies);
         setIsFound(true);
+        setMoviesFound(movies);
         setSearchText(searchText);
         setIsChecked(isChecked);
-        const moviesToDisplay = getMoviesToDisplay(movies, moviesDisplayed);
-        setMoviesDisplayed(moviesToDisplay.movies);
-        setIsMore(moviesToDisplay.isMore);
+        displayMovies(movies, [])
       }
     } 
     checkLocalStorage();
   }, [])
 
-
-
   return (
     <main className="movies">
       <div className="movies__container">
-        <SearchForm onSearch={ handleSearchClick } setSearchText={ setSearchText } setIsChecked = { setIsChecked } />
+        <SearchForm onSearch={ handleSearchClick } onCheckbox = { handleCheckBoxClick } />
         { isLoading ? <Preloader /> : <MoviesCardList cards={ moviesDisplayed }/> }
         { isFound ? null : <span className="text movies__error">{errorMessage}</span>  }
-        { isMore ? <MoviesMore onClick={ handleClick }  /> : null }
+        { isMore ? <MoviesMore onClick={ handleMoreMoviesClick }  /> : null }
       </div>
     </main>
   )
