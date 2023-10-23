@@ -14,16 +14,28 @@ export function filterMovies(movies, searchText, isChecked) {
   };
 }
 
-export function getMoviesToDisplay(moviesTotal, moviesDisplayed) {
-  if((moviesTotal.length > 12) && (moviesDisplayed.length === 0)) {
-    return { movies: moviesTotal.slice(0, 12),
+export function getMoviesToDisplay(moviesTotal, moviesDisplayed, width) {
+  let requiredLength;
+  let cardsInARow;
+  if(width >= 1280) {
+    requiredLength = 12;
+    cardsInARow = 3;
+  } else if(width < 1280 && width >=768) {
+    requiredLength = 8;
+    cardsInARow = 2;
+  } else if(width < 768) {
+    requiredLength = 5;
+    cardsInARow = 2;
+  }
+  if((moviesTotal.length > requiredLength) && (moviesDisplayed.length === 0)) {
+    return { movies: moviesTotal.slice(0, requiredLength),
              isMore: true }
-  } else if ((moviesTotal.length > 12) && (moviesDisplayed.length !== 0)) {
-      if((moviesTotal.length - (moviesDisplayed.length) <= 3)) {
+  } else if ((moviesTotal.length > requiredLength) && (moviesDisplayed.length !== 0)) {
+      if((moviesTotal.length - (moviesDisplayed.length) <= cardsInARow)) {
         return { movies: moviesTotal.slice(0, moviesDisplayed.length + (moviesTotal.length - moviesDisplayed.length)),
                 isMore: false } 
       } else {
-        return { movies: moviesTotal.slice(0, 3 + moviesDisplayed.length),
+        return { movies: moviesTotal.slice(0, cardsInARow + moviesDisplayed.length),
                 isMore: true } 
       }
   } else {

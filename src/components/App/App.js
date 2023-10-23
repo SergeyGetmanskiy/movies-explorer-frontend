@@ -19,6 +19,9 @@ import { mainApi } from '../../utils/MainApi';
 function App() {
 
   const [ width, setWidth ] = useState(window.innerWidth);
+  
+ 
+
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResizeWindow);
@@ -91,7 +94,7 @@ function App() {
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
-          <Route path="/movies" element={ <Movies /> } 
+          <Route path="/movies" element={ <Movies width={ width }/> } 
           />
           <Route path="/saved-movies" element={ <SavedMovies cards={ "" } /> } />
           <Route path="/profile" element={ <Profile onSignout={ handleSignOutClick } /> } />

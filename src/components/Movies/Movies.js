@@ -9,7 +9,7 @@ import { nothingFoundErrorMessage,
 import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 import { moviesApi } from '../../utils/MoviesApi';
 
-export default function Movies() {
+export default function Movies({ width }) {
   
   const [ movies, setMovies ] = useState([]);
   const [ moviesFound, setMoviesFound ] = useState([]);
@@ -42,7 +42,7 @@ export default function Movies() {
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
-    const moviesToDisplay = getMoviesToDisplay(found, displayed);
+    const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
     if(moviesToDisplay.movies.length > 0) {
@@ -101,6 +101,8 @@ export default function Movies() {
     } 
     checkLocalStorage();
   }, [])
+
+
 
   return (
     <main className="movies">
