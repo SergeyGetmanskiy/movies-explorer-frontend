@@ -25,13 +25,14 @@ export default function Movies() {
 
   const [ errorMessage, setErrorMessage ] = useState('');
 
-  function handleMovieSearch(movies, searchText, isChecked) {     // Фильтрация фильмов
+  function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
+      console.log(found, moviesDisplayed);
       setMoviesFound(found);
       setIsFound(true);
       localStorage.setItem('movies', JSON.stringify(found));
-      displayMovies(found, moviesDisplayed);
+      displayMovies(found, []);
     } else {
       setMoviesFound([]);
       setMoviesDisplayed([]);
@@ -44,6 +45,11 @@ export default function Movies() {
     const moviesToDisplay = getMoviesToDisplay(found, displayed);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
+    if(moviesToDisplay.movies.length > 0) {
+      setIsFound(true);
+    } else {
+      setIsFound(false);
+    }
   }
 
  
@@ -55,9 +61,8 @@ export default function Movies() {
       moviesApi.getMovies()                                  // Загрузка фильмов и поиск при первом валидном поисковом запросе
       .then((movies) => {
         setIsLoading(false);
-        console.log(query, movies);
         setMovies(movies);
-        handleMovieSearch(movies, query, isChecked);
+        handleMovieSearch(movies, query);
       })
       .catch((err) => {
         console.log(err);
@@ -66,7 +71,7 @@ export default function Movies() {
         setErrorMessage(serverErrorMessage);
       });
     } else {
-      handleMovieSearch(movies, query, isChecked);
+      handleMovieSearch(movies, query);
     }
   }
 
@@ -74,7 +79,7 @@ export default function Movies() {
     setIsChecked(checked);
     localStorage.setItem('isChecked', JSON.stringify(checked));
     const found = filterMovies(moviesFound, searchText, checked);
-    displayMovies(found, moviesDisplayed);
+    displayMovies(found, []);
   }
 
   function handleMoreMoviesClick() {                         // Обработчик по клику "Ещё"
