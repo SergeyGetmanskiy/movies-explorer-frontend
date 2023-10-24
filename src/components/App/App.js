@@ -12,15 +12,17 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
+import InfoPopup from '../InfoPopup/InfoPopup';
 
 import { mainApi } from '../../utils/MainApi';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 
 function App() {
 
+  const [ currentUser, setCurrentUser ] = useState({});
+
   const [ width, setWidth ] = useState(window.innerWidth);
-  
- 
 
   useEffect(() => {
     const handleResizeWindow = () => setWidth(window.innerWidth);
@@ -34,9 +36,19 @@ function App() {
    
   const { pathname } = useLocation();
 
+  const [ savedMovies, setSavedMovies ] = useState([]);
 
+  const [ errorMessage, setErrorMessage ] = useState("");
+
+  const [ isInfoPopupOpen, setIsInfoPopupOpen ] = useState(false);
+  const [ infoPopupMessage, setInfoPopupMessage ] = useState('');
 
   const navigate = useNavigate();
+
+  function handleError(err) {
+    const error = JSON.parse(err.message);
+    setErrorMessage(error.message);
+  }
 
   function handleLogoClick() {
     navigate('/', {replace: true});
@@ -51,36 +63,89 @@ function App() {
   }
 
   function handleProfileClick() {
+    setErrorMessage('');
     navigate('/profile', {replace: true});
   }
 
   function handleSignupClick() {
+    localStorage.clear();
     navigate('/signup', {replace: true});
     setLoggedIn(true);
   }
 
   function handleSigninClick() {
+    localStorage.clear();
     navigate('/signin', {replace: true});
     setLoggedIn(true);
   }
 
   function handleSignOutClick() {
+    localStorage.clear();
     setLoggedIn(false);
     navigate('/', {replace: true});
   }
 
-  function handleRegister(name, email, password) {          // Регистрация
-    mainApi.setUserInfo(name, email, password)
+  function handleRegister(data) {                             // Регистрация
+    mainApi.register(data)
     .then((res) => {
-        console.log('Registered')
-      } )
+      handleLogin(data);
+      setIsInfoPopupOpen(true);
+      setInfoPopupMessage("Поздравляю! Вы успешно зарегистрировались");
+    })
     .catch((err) => {
-      console.log(err); 
+      handleError(err);
     })  
+  }
+
+  function handleLogin(data) {                              // Логин
+    mainApi.login(data.email, data.password)
+    .then((res) => {
+        localStorage.setItem('jwt', res.token);
+        setLoggedIn(true);
+        navigate('/movies', {replace: true});
+        mainApi.getUserInfo()
+        .then((res) => {
+          setCurrentUser({ name: res.name,
+                           email: res.email })
+        })
+        .catch((err) => {
+          handleError(err);
+        })
+        })
+    .catch((err) => {
+      handleError(err);
+      setLoggedIn(false);
+      navigate('/signin', {replace: true});
+    })
+  }   
+
+  function handleUpdateUser(data) {                             // Редактирование профиля 
+    mainApi.setUserInfo(data).then(res => {
+      setCurrentUser(res);
+      setIsInfoPopupOpen(true);
+      setInfoPopupMessage("Данные пользователя успешно сохранены!");
+      navigate('/movies', {replace: true});
+    })
+    .catch((err) => {
+      handleError(err);
+    })
+  }
+
+
+                                                            // Обработчик клика по лайку
+  function handleCardLike(card) {
+  //  const isLiked = card.likes.some(i => i === currentUser._id);
+    mainApi.postUserMovie(card).then((savedCard) => {
+      setSavedMovies([savedCard, ...savedMovies]);
+  })
+    .catch((err) => {
+      console.log(err);
+    })
   }
  
   return (
-    <div className="app">
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies" || pathname === "/profile" ) && 
         <Header width={ width }
                 loggedIn={ loggedIn }
@@ -94,16 +159,27 @@ function App() {
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
-          <Route path="/movies" element={ <Movies width={ width }/> } 
+          <Route path="/movies" element={ <Movies width={ width } 
+                                                  onCardLike={ handleCardLike }/> } 
           />
-          <Route path="/saved-movies" element={ <SavedMovies cards={ "" } /> } />
-          <Route path="/profile" element={ <Profile onSignout={ handleSignOutClick } /> } />
-          <Route path="/signin" element={ <Login onLogo={ handleLogoClick } onSignup={ handleSignupClick } /> } />
-          <Route path="/signup" element={ <Register onLogo={ handleLogoClick } onSignin={ handleSigninClick } onRegister={ handleRegister } /> } />
+          <Route path="/saved-movies" element={ <SavedMovies cards={ savedMovies } /> } />
+          <Route path="/profile" element={ <Profile onSignout={ handleSignOutClick }
+                                                    onUpdate={ handleUpdateUser }
+                                                    errorMessage={ errorMessage } /> } />
+          <Route path="/signin" element={ <Login onLogo={ handleLogoClick }
+                                                 onSignup={ handleSignupClick }
+                                                 onLogin={ handleLogin }
+                                                 errorMessage={ errorMessage } /> } />
+          <Route path="/signup" element={ <Register onLogo={ handleLogoClick }
+                                                    onSignin={ handleSigninClick }
+                                                    onRegister={ handleRegister }
+                                                    errorMessage={ errorMessage } /> } />
           <Route path="*" element={ <PageNotFound /> } />
         </Routes>
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies") && <Footer /> }
-    </div>
+        <InfoPopup isOpen={ isInfoPopupOpen } onClose={ () => setIsInfoPopupOpen(false) } message={ infoPopupMessage } />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

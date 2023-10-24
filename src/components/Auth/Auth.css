@@ -32,10 +32,6 @@
   align-self: flex-start;
 }
 
-.auth__button-bar button {
-  background-color: #4285F4;
-}
-
 .auth__footer {
   width: 100%;
   margin:0;

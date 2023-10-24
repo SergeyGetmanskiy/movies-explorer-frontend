@@ -4,12 +4,12 @@ import SearchForm from "./SearchForm/SearchForm"
 import Preloader from "./Preloader/Preloader"
 import MoviesCardList from "./MoviesCardList/MoviesCardList"
 import MoviesMore from "./MoviesMore/MoviesMore"
-import { nothingFoundErrorMessage,
-         serverErrorMessage } from '../../utils/constants'; 
+import { NOTHING_FOUND_ERROR,
+         SERVER_ERROR } from '../../utils/constants'; 
 import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 import { moviesApi } from '../../utils/MoviesApi';
 
-export default function Movies({ width }) {
+export default function Movies({ width, onCardLike }) {
   
   const [ movies, setMovies ] = useState([]);
   const [ moviesFound, setMoviesFound ] = useState([]);
@@ -37,7 +37,7 @@ export default function Movies({ width }) {
       setMoviesFound([]);
       setMoviesDisplayed([]);
       setIsFound(false);
-      setErrorMessage(nothingFoundErrorMessage);
+      setErrorMessage(NOTHING_FOUND_ERROR);
     }
   }
 
@@ -68,7 +68,7 @@ export default function Movies({ width }) {
         console.log(err);
         setIsLoading(false);
         setIsFound(false);
-        setErrorMessage(serverErrorMessage);
+        setErrorMessage(SERVER_ERROR);
       });
     } else {
       handleMovieSearch(movies, query);
@@ -102,13 +102,11 @@ export default function Movies({ width }) {
     checkLocalStorage();
   }, [])
 
-
-
   return (
     <main className="movies">
       <div className="movies__container">
         <SearchForm onSearch={ handleSearchClick } onCheckbox = { handleCheckBoxClick } />
-        { isLoading ? <Preloader /> : <MoviesCardList cards={ moviesDisplayed }/> }
+        { isLoading ? <Preloader /> : <MoviesCardList cards={ moviesDisplayed } onCardLike={ onCardLike }/> }
         { isFound ? null : <span className="text movies__error">{errorMessage}</span>  }
         { isMore ? <MoviesMore onClick={ handleMoreMoviesClick }  /> : null }
       </div>

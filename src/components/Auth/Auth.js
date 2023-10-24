@@ -16,18 +16,21 @@ export default function Auth({ authHeading,
 
   return (
     <main className="auth">
-      <div className="auth__container">
+      <form className="auth__container"
+            noValidate="noValidate"
+            onSubmit={ onSubmit }
+      >
         <ButtonLogo className={"auth__button-logo"} onClick={ onLogo } />
         <h1 className="text auth__heading">{ authHeading }</h1>
         { children }
-        <ButtonBar className="auth__button-bar" buttonTitle={ submitButtonTitle } onSubmit={ onSubmit } isButtonActive={ isSubmitButtonActive }>
+        <ButtonBar buttonTitle={ submitButtonTitle } isButtonActive={ isSubmitButtonActive }>
           <ApiErrorMessage errorMessage={ errorMessage }/>
         </ButtonBar> 
         <div className="auth__footer">
           <p className="auth__message">{ textButtonMessage }</p>  
           <ButtonText className={`auth__button-text`} buttonTitle={ textButtonTitle } onClick={ onTextButton } />
         </div>
-      </div>
+      </form>
     </main>
   )
 } 

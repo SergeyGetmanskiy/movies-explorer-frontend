@@ -3,20 +3,26 @@ import { useState } from "react";
 import Auth from "../Auth/Auth";
 import InputAuth from "../UI/Inputs/InputAuth/InputAuth";
 
-export default function Register({ onLogo, onSignin }) {
+export default function Register({ onLogo, onSignin, onRegister, errorMessage }) {
 
-  const [ name, setName ] = useState("Виталий");
-  const [ email, setEmail ] = useState("pochta@yandex.ru");
-  const [ password, setPassword ] = useState("12345678");
+  const [ name, setName ] = useState("");
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
 
   const [ isNameInputValid, setIsNameInputValid ] = useState(true);
   const [ isEmailInputValid, setIsEmailInputValid ] = useState(true);
   const [ isPasswordInputValid, setIsPasswordInputValid ] = useState(false);
 
-  const [ errorMessage, setErrorMessage ] = useState("При регистрации пользователя произошла ошибка.");
+  
 
   function handleSubmit(e) {
- 
+    e.preventDefault();
+    const data = {
+      name: e.target[1].value,
+      email: e.target[2].value,
+      password: e.target[3].value,
+    }
+    onRegister(data);
   }
 
   return (

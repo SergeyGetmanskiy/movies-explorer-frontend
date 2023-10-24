@@ -1,7 +1,7 @@
 import SearchForm from "../Movies/SearchForm/SearchForm"
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList"
 
-export default function SavedMovies({ cards, isLoading }) {
+export default function SavedMovies({ cards }) {
   return (
     <main className="movies">
       <div className="movies__container">

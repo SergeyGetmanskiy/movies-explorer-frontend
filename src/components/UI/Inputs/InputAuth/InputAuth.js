@@ -44,6 +44,7 @@ export default function InputAuth({ name,
         pattern={pattern}
         value={value}
         onInput={handleChange}
+        autoComplete="on"
       />
       <span className={`text input-auth__error ${ isInputValid ? '' : 'input-auth__error_visible' }`}>{errorMessage}</span>
     </div>

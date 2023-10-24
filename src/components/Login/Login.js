@@ -3,18 +3,21 @@ import { useState } from "react";
 import Auth from "../Auth/Auth";
 import InputAuth from "../UI/Inputs/InputAuth/InputAuth";
 
-export default function Login({ onLogo, onSignup }) {
+export default function Login({ onLogo, onSignup, onLogin, errorMessage }) {
 
-  const [ email, setEmail ] = useState("pochta@yandex.ru");
-  const [ password, setPassword ] = useState("12345678");
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
 
   const [ isEmailInputValid, setIsEmailInputValid ] = useState(true);
   const [ isPasswordInputValid, setIsPasswordInputValid ] = useState(false);
 
-  const [ errorMessage, setErrorMessage ] = useState("Вы ввели неправильный логин или пароль. ");
-
   function handleSubmit(e) {
- 
+    e.preventDefault();
+    const data = {
+      email: e.target[1].value,
+      password: e.target[2].value,
+    }
+    onLogin(data);
   }
 
   return (

@@ -7,9 +7,8 @@ class MainApi {
     if(res.ok) {
       return res.json();
       } else {
-        return Promise.reject(`Ошибка: ${res.status}`);
-      }
-    }
+        return res.text().then(text => { throw new Error(text) })
+    }}
 
   _getToken() {
     const token = localStorage.getItem('jwt');
@@ -19,6 +18,48 @@ class MainApi {
       return null
     }
   }
+
+  register(data) {
+    return fetch(`${this._url}/signup`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "name": data.name,
+        "email": data.email,
+        "password": data.password,
+      })
+    })
+    .then(this._checkServerResponse)
+  };
+
+  login(email, password) {
+    return fetch(`${this._url}/signin`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "password": password,
+        "email": email
+      })
+    })
+    .then(this._checkServerResponse)
+  };
+  
+ /* checkToken(token) {
+    return request(`${BASE_URL}/users/me`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
+    })
+  };*/
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
@@ -32,15 +73,14 @@ class MainApi {
 
   setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
-      method: 'POST',
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._getToken()}`,
       },
       body: JSON.stringify({
         name: data.name,
-        about: data.email,
-        password: data.password,
+        email: data.email,
     })})
     .then(this._checkServerResponse)}
 
@@ -102,5 +142,5 @@ class MainApi {
 }; 
 
 export const mainApi = new MainApi({
-  baseUrl: 'https://api.sgetmansky.backend.nomoredomainsicu.ru'
-});
+  baseUrl: 'https://api.movies.sgetmansky.nomoredomainsrocks.ru'
+}); 

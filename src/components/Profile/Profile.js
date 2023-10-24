@@ -1,34 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 import InputProfile from "../UI/Inputs/InputProfile/InputProfile"
 import ButtonText from "../UI/Buttons/ButtonText/ButtonText"
 import ButtonBar from "../UI/Buttons/ButtonBar/ButtonBar";
 import ApiErrorMessage from "../UI/ApiErrorMessage/ApiErrorMessage";
 
-export default function Profile({ onSignout }) {
+export default function Profile({ onSignout, onUpdate, errorMessage  }) {
+
+  const currentUser = useContext(CurrentUserContext);
 
   const [ isInputDisabled, setIsInputDisabled ] = useState(true);
 
-  const [ name, setName ] = useState("Виталий");
-  const [ email, setEmail ] = useState("pochta@yandex.ru");
+  const [ name, setName ] = useState("");
+  const [ email, setEmail ] = useState("");
 
   const [ isNameInputValid, setIsNameInputValid ] = useState(true);
   const [ isEmailInputValid, setIsEmailInputValid ] = useState(true);
 
-  const [ errorMessage, setErrorMessaged ] = useState("При обновлении профиля произошла ошибка.");
+  const [ isButtonActive, setIsButtonActive ] = useState(false);
 
   function handleEditClick() {
     setIsInputDisabled(false);
   }
 
   function handleSubmit(e) {
-    console.log(e.target);
+    e.preventDefault();
+    onUpdate({
+      name: name,
+      email: email,
+    });
   }
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]); 
+
+  useEffect(() => {
+    ((name !== currentUser.name || email !== currentUser.email) && (isNameInputValid && isEmailInputValid))
+    ? setIsButtonActive(true) 
+    : setIsButtonActive(false);
+  }, [name, email ]); 
 
   return (
     <main className="profile">
-      <div className="profile__container">
-        <h1 className="text profile__heading">Привет, Виталий!</h1>
+      <form className="profile__container"
+            noValidate="noValidate"
+            onSubmit={ handleSubmit }
+      >
+        <h1 className="text profile__heading">{`Привет, ${currentUser.name}!`}</h1>
         <InputProfile
           name="name"
           id="profile-input-name"
@@ -70,12 +91,11 @@ export default function Profile({ onSignout }) {
           :
           <ButtonBar className="profile__button-bar"
                      buttonTitle="Сохранить"
-                     onClick={ handleSubmit }
-                     isButtonActive={ isNameInputValid && isEmailInputValid }>
+                     isButtonActive={ isButtonActive }>
             <ApiErrorMessage errorMessage={errorMessage}/>
           </ButtonBar>
         }        
-      </div>
+      </form>
     </main>
   )
 } 
