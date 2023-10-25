@@ -4,8 +4,8 @@ import SearchForm from "./SearchForm/SearchForm"
 import Preloader from "./Preloader/Preloader"
 import MoviesCardList from "./MoviesCardList/MoviesCardList"
 import MoviesMore from "./MoviesMore/MoviesMore"
-import { NOTHING_FOUND_ERROR,
-         SERVER_ERROR } from '../../utils/constants'; 
+import { NOTHING_FOUND_ERROR_MESSAGE,
+         SERVER_ERROR_MESSAGE } from '../../utils/constants'; 
 import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 import { moviesApi } from '../../utils/MoviesApi';
 
@@ -37,7 +37,7 @@ export default function Movies({ width, onCardLike }) {
       setMoviesFound([]);
       setMoviesDisplayed([]);
       setIsFound(false);
-      setErrorMessage(NOTHING_FOUND_ERROR);
+      setErrorMessage(NOTHING_FOUND_ERROR_MESSAGE);
     }
   }
 
@@ -68,7 +68,7 @@ export default function Movies({ width, onCardLike }) {
         console.log(err);
         setIsLoading(false);
         setIsFound(false);
-        setErrorMessage(SERVER_ERROR);
+        setErrorMessage(SERVER_ERROR_MESSAGE);
       });
     } else {
       handleMovieSearch(movies, query);

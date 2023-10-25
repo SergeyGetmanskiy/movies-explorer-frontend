@@ -50,8 +50,9 @@ class MainApi {
     .then(this._checkServerResponse)
   };
   
- /* checkToken(token) {
-    return request(`${BASE_URL}/users/me`, {
+  checkToken(token) {
+    console.log(token);
+    return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -59,7 +60,8 @@ class MainApi {
         'Authorization': `Bearer ${token}`,
       }
     })
-  };*/
+    .then(this._checkServerResponse);
+  };
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {

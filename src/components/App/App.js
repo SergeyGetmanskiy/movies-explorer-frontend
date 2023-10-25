@@ -14,6 +14,9 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import InfoPopup from '../InfoPopup/InfoPopup';
 
+import { REGISTER_SUCCESS_MESSAGE,
+         PROFILE_UPDATE_SUCCESS_MESSAGE } from '../../utils/constants';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
@@ -51,6 +54,7 @@ function App() {
   }
 
   function handleLogoClick() {
+    
     navigate('/', {replace: true});
   }
 
@@ -90,14 +94,14 @@ function App() {
     .then((res) => {
       handleLogin(data);
       setIsInfoPopupOpen(true);
-      setInfoPopupMessage("Поздравляю! Вы успешно зарегистрировались");
+      setInfoPopupMessage(REGISTER_SUCCESS_MESSAGE);
     })
     .catch((err) => {
       handleError(err);
     })  
   }
 
-  function handleLogin(data) {                              // Логин
+  function handleLogin(data) {                               // Логин
     mainApi.login(data.email, data.password)
     .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -119,21 +123,19 @@ function App() {
     })
   }   
 
-  function handleUpdateUser(data) {                             // Редактирование профиля 
+  function handleUpdateUser(data) {                          // Редактирование профиля 
     mainApi.setUserInfo(data).then(res => {
       setCurrentUser(res);
       setIsInfoPopupOpen(true);
-      setInfoPopupMessage("Данные пользователя успешно сохранены!");
+      setInfoPopupMessage(PROFILE_UPDATE_SUCCESS_MESSAGE);
       navigate('/movies', {replace: true});
     })
     .catch((err) => {
       handleError(err);
     })
   }
-
-
-                                                            // Обработчик клика по лайку
-  function handleCardLike(card) {
+                                                            
+  function handleCardLike(card) {                           // Обработчик клика по лайку
   //  const isLiked = card.likes.some(i => i === currentUser._id);
     mainApi.postUserMovie(card).then((savedCard) => {
       setSavedMovies([savedCard, ...savedMovies]);
@@ -142,6 +144,33 @@ function App() {
       console.log(err);
     })
   }
+
+  useEffect(() => {                                       // Проверка токена
+    const checkToken = () => {
+      const jwt = localStorage.getItem('jwt');
+      console.log(jwt);
+      if (jwt) {
+        mainApi.checkToken(jwt)
+        .then((res) => {
+          console.log(res);
+          setLoggedIn(true);
+          setCurrentUser({ name: res.name,
+                           email: res.email })
+          navigate('/movies', {replace: true});
+        })
+        .catch((err) => {
+          console.log(err);
+          handleError(err);
+          localStorage.clear();
+          setLoggedIn(false);
+          navigate('/', {replace: true});
+        })  
+      } else {
+        setLoggedIn(false);
+      }
+    }; 
+    checkToken();
+  }, [])
  
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -159,13 +188,15 @@ function App() {
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
-          <Route path="/movies" element={ <Movies width={ width } 
-                                                  onCardLike={ handleCardLike }/> } 
-          />
-          <Route path="/saved-movies" element={ <SavedMovies cards={ savedMovies } /> } />
-          <Route path="/profile" element={ <Profile onSignout={ handleSignOutClick }
-                                                    onUpdate={ handleUpdateUser }
-                                                    errorMessage={ errorMessage } /> } />
+          <Route path="/movies" element={ <ProtectedRoute  element={ <Movies /> }
+                                                           width={ width }
+                                                           onCardLike={ handleCardLike } /> } /> 
+          <Route path="/saved-movies" element={ <ProtectedRoute element={ <SavedMovies /> }
+                                                                cards={ savedMovies } /> } />
+          <Route path="/profile" element={ <ProtectedRoute element={ <Profile /> }
+                                                           onSignout={ handleSignOutClick }
+                                                           onUpdate={ handleUpdateUser }
+                                                           errorMessage={ errorMessage } /> } />
           <Route path="/signin" element={ <Login onLogo={ handleLogoClick }
                                                  onSignup={ handleSignupClick }
                                                  onLogin={ handleLogin }
