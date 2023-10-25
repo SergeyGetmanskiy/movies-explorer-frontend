@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox"
 
-export default function SearchForm( { onSearch, onCheckbox } ) {
+export default function SearchForm( { onSearch, onCheckbox, isChecked } ) {
 
   const [ isInputValid, setIsInputValid ] = useState(true);
 
@@ -34,7 +34,7 @@ export default function SearchForm( { onSearch, onCheckbox } ) {
         />
         <span className={`text search-form__error ${ isInputValid ? '' : 'search-form__error_visible' }`}>{errorMessage}</span>
       </div>
-      <FilterCheckbox className="search-form__input" onCheckbox = { onCheckbox } /> 
+      <FilterCheckbox className="search-form__input" onCheckbox = { onCheckbox } isChecked={ isChecked } /> 
       <hr className="search-form__horizontal-line" />
     </form>
   )

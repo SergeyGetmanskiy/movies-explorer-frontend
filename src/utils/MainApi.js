@@ -51,7 +51,6 @@ class MainApi {
   };
   
   checkToken(token) {
-    console.log(token);
     return fetch(`${this._url}/users/me`, {
       method: 'GET',
       headers: {

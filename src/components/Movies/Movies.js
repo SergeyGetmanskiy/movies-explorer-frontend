@@ -28,7 +28,6 @@ export default function Movies({ width, onCardLike }) {
   function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
-      console.log(found, moviesDisplayed);
       setMoviesFound(found);
       setIsFound(true);
       localStorage.setItem('movies', JSON.stringify(found));
@@ -96,7 +95,8 @@ export default function Movies({ width, onCardLike }) {
         setMoviesFound(movies);
         setSearchText(searchText);
         setIsChecked(isChecked);
-        displayMovies(movies, [])
+        const found = filterMovies(movies, searchText, isChecked);
+        displayMovies(found, [])
       }
     } 
     checkLocalStorage();
@@ -105,7 +105,7 @@ export default function Movies({ width, onCardLike }) {
   return (
     <main className="movies">
       <div className="movies__container">
-        <SearchForm onSearch={ handleSearchClick } onCheckbox = { handleCheckBoxClick } />
+        <SearchForm onSearch={ handleSearchClick } onCheckbox = { handleCheckBoxClick } isChecked={ isChecked } />
         { isLoading ? <Preloader /> : <MoviesCardList cards={ moviesDisplayed } onCardLike={ onCardLike }/> }
         { isFound ? null : <span className="text movies__error">{errorMessage}</span>  }
         { isMore ? <MoviesMore onClick={ handleMoreMoviesClick }  /> : null }

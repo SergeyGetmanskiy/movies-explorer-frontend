@@ -27,14 +27,6 @@ function App() {
 
   const [ width, setWidth ] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResizeWindow = () => setWidth(window.innerWidth);
-    window.addEventListener("resize", handleResizeWindow);
-    return () => {
-      window.removeEventListener("resize", handleResizeWindow);
-    };
-   }, []);
-
   const [ loggedIn, setLoggedIn ] = useState(false);
    
   const { pathname } = useLocation();
@@ -54,7 +46,6 @@ function App() {
   }
 
   function handleLogoClick() {
-    
     navigate('/', {replace: true});
   }
 
@@ -72,15 +63,13 @@ function App() {
   }
 
   function handleSignupClick() {
-    localStorage.clear();
+    setErrorMessage('');
     navigate('/signup', {replace: true});
-    setLoggedIn(true);
   }
 
   function handleSigninClick() {
-    localStorage.clear();
+    setErrorMessage('');
     navigate('/signin', {replace: true});
-    setLoggedIn(true);
   }
 
   function handleSignOutClick() {
@@ -145,18 +134,24 @@ function App() {
     })
   }
 
+  useEffect(() => {                                       // Проверка ширины экрана
+    const handleResizeWindow = () => setWidth(window.innerWidth);
+    window.addEventListener("resize", handleResizeWindow);
+    return () => {
+      window.removeEventListener("resize", handleResizeWindow);
+    };
+   }, []);
+
   useEffect(() => {                                       // Проверка токена
     const checkToken = () => {
       const jwt = localStorage.getItem('jwt');
-      console.log(jwt);
       if (jwt) {
         mainApi.checkToken(jwt)
         .then((res) => {
-          console.log(res);
           setLoggedIn(true);
           setCurrentUser({ name: res.name,
                            email: res.email })
-          navigate('/movies', {replace: true});
+          navigate('/', {replace: true});
         })
         .catch((err) => {
           console.log(err);
@@ -188,12 +183,15 @@ function App() {
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
-          <Route path="/movies" element={ <ProtectedRoute  element={ <Movies /> }
+          <Route path="/movies" element={ <ProtectedRoute  element={ Movies }
+                                                           loggedIn={ loggedIn }
                                                            width={ width }
                                                            onCardLike={ handleCardLike } /> } /> 
-          <Route path="/saved-movies" element={ <ProtectedRoute element={ <SavedMovies /> }
+          <Route path="/saved-movies" element={ <ProtectedRoute element={ SavedMovies }
+                                                                loggedIn={ loggedIn }
                                                                 cards={ savedMovies } /> } />
-          <Route path="/profile" element={ <ProtectedRoute element={ <Profile /> }
+          <Route path="/profile" element={ <ProtectedRoute element={ Profile }
+                                                           loggedIn={ loggedIn }
                                                            onSignout={ handleSignOutClick }
                                                            onUpdate={ handleUpdateUser }
                                                            errorMessage={ errorMessage } /> } />
