@@ -60,8 +60,11 @@ export default function Movies({ width, onCardLike }) {
       moviesApi.getMovies()                                  // Загрузка фильмов и поиск при первом валидном поисковом запросе
       .then((movies) => {
         setIsLoading(false);
-        setMovies(movies);
-        handleMovieSearch(movies, query);
+        const newMovies = () => movies.map((movie) => { return { imageFull: `https://api.nomoreparties.co${movie.image.url}`,
+                                                                 thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
+                                                                 ...movie }});
+        setMovies(newMovies());
+        handleMovieSearch(newMovies(), query);
       })
       .catch((err) => {
         console.log(err);
@@ -88,14 +91,14 @@ export default function Movies({ width, onCardLike }) {
   useEffect(() => {                                         // Проверка localStorage 
     const checkLocalStorage = () => {
       const movies = JSON.parse(localStorage.getItem('movies'));
-      const searchText = JSON.parse(localStorage.getItem('searchText'));
-      const isChecked = JSON.parse(localStorage.getItem('isChecked'));
+      const text = JSON.parse(localStorage.getItem('searchText'));
+      const checked = JSON.parse(localStorage.getItem('isChecked'));
       if (movies) {
         setIsFound(true);
         setMoviesFound(movies);
-        setSearchText(searchText);
-        setIsChecked(isChecked);
-        const found = filterMovies(movies, searchText, isChecked);
+        setSearchText(text);
+        setIsChecked(checked);
+        const found = filterMovies(movies, text, checked);
         displayMovies(found, [])
       }
     } 

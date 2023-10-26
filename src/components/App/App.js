@@ -25,13 +25,13 @@ function App() {
 
   const [ currentUser, setCurrentUser ] = useState({});
 
+  const [ savedMovies, setSavedMovies ] = useState([]);
+
   const [ width, setWidth ] = useState(window.innerWidth);
 
   const [ loggedIn, setLoggedIn ] = useState(false);
    
   const { pathname } = useLocation();
-
-  const [ savedMovies, setSavedMovies ] = useState([]);
 
   const [ errorMessage, setErrorMessage ] = useState("");
 
@@ -39,6 +39,18 @@ function App() {
   const [ infoPopupMessage, setInfoPopupMessage ] = useState('');
 
   const navigate = useNavigate();
+
+  function getUserAndMovies() {
+    Promise.all([ mainApi.getUserInfo(), mainApi.getMoviesList() ])
+    .then(([ user, movies ]) => {
+      setCurrentUser(user);
+      setSavedMovies(movies);
+      }
+    )
+    .catch((err) => {
+      console.log(err);
+    })
+  }
 
   function handleError(err) {
     const error = JSON.parse(err.message);
@@ -78,7 +90,7 @@ function App() {
     navigate('/', {replace: true});
   }
 
-  function handleRegister(data) {                             // Регистрация
+  function handleRegister(data) {                           // Регистрация
     mainApi.register(data)
     .then((res) => {
       handleLogin(data);
@@ -90,20 +102,13 @@ function App() {
     })  
   }
 
-  function handleLogin(data) {                               // Логин
+  function handleLogin(data) {                              // Логин
     mainApi.login(data.email, data.password)
     .then((res) => {
         localStorage.setItem('jwt', res.token);
         setLoggedIn(true);
         navigate('/movies', {replace: true});
-        mainApi.getUserInfo()
-        .then((res) => {
-          setCurrentUser({ name: res.name,
-                           email: res.email })
-        })
-        .catch((err) => {
-          handleError(err);
-        })
+        getUserAndMovies();
         })
     .catch((err) => {
       handleError(err);
@@ -112,7 +117,7 @@ function App() {
     })
   }   
 
-  function handleUpdateUser(data) {                          // Редактирование профиля 
+  function handleUpdateUser(data) {                        // Редактирование профиля 
     mainApi.setUserInfo(data).then(res => {
       setCurrentUser(res);
       setIsInfoPopupOpen(true);
@@ -124,10 +129,24 @@ function App() {
     })
   }
                                                             
-  function handleCardLike(card) {                           // Обработчик клика по лайку
-  //  const isLiked = card.likes.some(i => i === currentUser._id);
-    mainApi.postUserMovie(card).then((savedCard) => {
-      setSavedMovies([savedCard, ...savedMovies]);
+  function handleCardLike(card) {                         // Обработчик клика по лайку
+    const isLiked = savedMovies.some(movie => movie._id === card._id);
+    if(!isLiked) {
+      mainApi.postUserMovie(card).then((card) => {
+        setSavedMovies([card.movie, ...savedMovies]);
+      })
+        .catch((err) => {
+          console.log(err);
+        })
+    } else {
+      handleCardDelete(card._id);
+    }
+    
+  }
+
+  function handleCardDelete(cardId) {                     // Обработчик клика по крестику
+    mainApi.deleteUserMovie(cardId).then(() => {
+      setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
   })
     .catch((err) => {
       console.log(err);
@@ -142,30 +161,27 @@ function App() {
     };
    }, []);
 
+
   useEffect(() => {                                       // Проверка токена
     const checkToken = () => {
       const jwt = localStorage.getItem('jwt');
       if (jwt) {
         mainApi.checkToken(jwt)
         .then((res) => {
-          setLoggedIn(true);
-          setCurrentUser({ name: res.name,
-                           email: res.email })
-          navigate('/', {replace: true});
-        })
+            setLoggedIn(true); 
+            getUserAndMovies();      
+            navigate("/", {replace: true})
+          })
         .catch((err) => {
           console.log(err);
-          handleError(err);
-          localStorage.clear();
           setLoggedIn(false);
-          navigate('/', {replace: true});
+          navigate("/", {replace: true})
         })  
-      } else {
-        setLoggedIn(false);
       }
-    }; 
-    checkToken();
-  }, [])
+    } 
+  checkToken();
+  }, []) 
+
  
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -189,7 +205,8 @@ function App() {
                                                            onCardLike={ handleCardLike } /> } /> 
           <Route path="/saved-movies" element={ <ProtectedRoute element={ SavedMovies }
                                                                 loggedIn={ loggedIn }
-                                                                cards={ savedMovies } /> } />
+                                                                savedMovies={ savedMovies }
+                                                                onCardDelete={ handleCardDelete } /> } />
           <Route path="/profile" element={ <ProtectedRoute element={ Profile }
                                                            loggedIn={ loggedIn }
                                                            onSignout={ handleSignOutClick }

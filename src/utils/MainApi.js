@@ -64,6 +64,7 @@ class MainApi {
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this._getToken()}`,
@@ -108,10 +109,10 @@ class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        image: data.image,
+        imageFull: data.imageFull,
         trailerLink: data.trailerLink,
         thumbnail: data.thumbnail,
-        movieId: data.movieId,
+        movieId: data.id,
         nameRU: data.nameRU,
         nameEN: data.nameEN,
       })})
