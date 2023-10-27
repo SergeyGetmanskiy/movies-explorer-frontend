@@ -132,7 +132,9 @@ function App() {
   function handleCardLike(card) {                         // Обработчик клика по лайку
     const isLiked = savedMovies.some(movie => movie._id === card._id);
     if(!isLiked) {
-      mainApi.postUserMovie(card).then((card) => {
+      const likedCard = { likes: !isLiked, ...card };
+      console.log(likedCard);
+      mainApi.postUserMovie(likedCard).then((card) => {
         setSavedMovies([card.movie, ...savedMovies]);
       })
         .catch((err) => {
@@ -205,6 +207,7 @@ function App() {
                                                            onCardLike={ handleCardLike } /> } /> 
           <Route path="/saved-movies" element={ <ProtectedRoute element={ SavedMovies }
                                                                 loggedIn={ loggedIn }
+                                                                width={ width }
                                                                 savedMovies={ savedMovies }
                                                                 onCardDelete={ handleCardDelete } /> } />
           <Route path="/profile" element={ <ProtectedRoute element={ Profile }

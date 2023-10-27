@@ -115,6 +115,7 @@ class MainApi {
         movieId: data.id,
         nameRU: data.nameRU,
         nameEN: data.nameEN,
+        likes: data.likes,
       })})
     .then(this._checkServerResponse)
   }

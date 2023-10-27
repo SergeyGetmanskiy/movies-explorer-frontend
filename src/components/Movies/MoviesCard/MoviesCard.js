@@ -11,7 +11,12 @@ export default function MoviesCard({ card, pathname, onCardLike, onCardDelete })
 
   function handleLikeClick() {
     onCardLike(card);
-    setIsLiked(true);
+    if(card.likes === false) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+    
   }
 
   function handleCardDelete(e) {

@@ -41,6 +41,7 @@ export default function Movies({ width, onCardLike }) {
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
+    console.log(found);
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
@@ -60,7 +61,8 @@ export default function Movies({ width, onCardLike }) {
       moviesApi.getMovies()                                  // Загрузка фильмов и поиск при первом валидном поисковом запросе
       .then((movies) => {
         setIsLoading(false);
-        const newMovies = () => movies.map((movie) => { return { imageFull: `https://api.nomoreparties.co${movie.image.url}`,
+        const newMovies = () => movies.map((movie) => { return { likes: false,
+                                                                 imageFull: `https://api.nomoreparties.co${movie.image.url}`,
                                                                  thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
                                                                  ...movie }});
         setMovies(newMovies());
