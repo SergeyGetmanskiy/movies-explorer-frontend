@@ -164,6 +164,7 @@ function App() {
       console.log(updatedMovie);
       updatedMovie.likes = false;
       setMoviesFound(updatedMoviesList);
+      localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
   })
     .catch((err) => {
       console.log(err);
