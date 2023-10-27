@@ -32,6 +32,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
+    console.log(savedMovies);
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     if(moviesToDisplay.movies.length > 0) {

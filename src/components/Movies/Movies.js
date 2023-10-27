@@ -9,10 +9,10 @@ import { NOTHING_FOUND_ERROR_MESSAGE,
 import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 import { moviesApi } from '../../utils/MoviesApi';
 
-export default function Movies({ width, onCardLike }) {
+export default function Movies({ width, onCardLike, moviesFound, setMoviesFound }) {
   
   const [ movies, setMovies ] = useState([]);
-  const [ moviesFound, setMoviesFound ] = useState([]);
+
   const [ moviesDisplayed, setMoviesDisplayed ] = useState([]);
 
   const [ searchText, setSearchText ] = useState('');
@@ -62,6 +62,7 @@ export default function Movies({ width, onCardLike }) {
       .then((movies) => {
         setIsLoading(false);
         const newMovies = () => movies.map((movie) => { return { likes: false,
+                                                                 _id: movie.id,
                                                                  imageFull: `https://api.nomoreparties.co${movie.image.url}`,
                                                                  thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
                                                                  ...movie }});

@@ -25,6 +25,8 @@ function App() {
 
   const [ currentUser, setCurrentUser ] = useState({});
 
+  const [ moviesFound, setMoviesFound ] = useState([]);
+
   const [ savedMovies, setSavedMovies ] = useState([]);
 
   const [ width, setWidth ] = useState(window.innerWidth);
@@ -129,13 +131,18 @@ function App() {
     })
   }
                                                             
-  function handleCardLike(card) {                         // Обработчик клика по лайку
-    const isLiked = savedMovies.some(movie => movie._id === card._id);
+  function handleCardLike(card, isLiked) {                         // Обработчик клика по лайку
+    console.log(card, isLiked);
     if(!isLiked) {
-      const likedCard = { likes: !isLiked, ...card };
-      console.log(likedCard);
-      mainApi.postUserMovie(likedCard).then((card) => {
+      mainApi.postUserMovie(card).then((card) => {
+        console.log(card.movie);
         setSavedMovies([card.movie, ...savedMovies]);
+        const updatedMoviesList = [...moviesFound];
+        const updatedMovie = updatedMoviesList.find(movie => movie._id === card.movie.movieId);
+        console.log(updatedMovie);
+        updatedMovie.likes = true;
+        setMoviesFound(updatedMoviesList);
+        localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
       })
         .catch((err) => {
           console.log(err);
@@ -149,6 +156,7 @@ function App() {
   function handleCardDelete(cardId) {                     // Обработчик клика по крестику
     mainApi.deleteUserMovie(cardId).then(() => {
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
+      setMoviesFound(moviesFound.filter((card) => card._id !== cardId))
   })
     .catch((err) => {
       console.log(err);
@@ -204,7 +212,9 @@ function App() {
           <Route path="/movies" element={ <ProtectedRoute  element={ Movies }
                                                            loggedIn={ loggedIn }
                                                            width={ width }
-                                                           onCardLike={ handleCardLike } /> } /> 
+                                                           onCardLike={ handleCardLike }
+                                                           moviesFound={ moviesFound }
+                                                           setMoviesFound={ setMoviesFound } /> } /> 
           <Route path="/saved-movies" element={ <ProtectedRoute element={ SavedMovies }
                                                                 loggedIn={ loggedIn }
                                                                 width={ width }

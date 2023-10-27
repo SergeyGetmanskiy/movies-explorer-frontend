@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import ButtonLike from "../../UI/Buttons/ButtonLike/ButtonLike";
 import ButtonDelete from "../../UI/Buttons/ButtonDelete/ButtonDelete";
 
@@ -7,14 +5,13 @@ export default function MoviesCard({ card, pathname, onCardLike, onCardDelete })
   
   const hours = Math.floor(card.duration / 60);
   const minutes = card.duration % 60;
-  const [ isLiked, setIsLiked ] = useState(false);
+  const isLiked = card.likes === true ? true : false;
 
   function handleLikeClick() {
-    onCardLike(card);
-    if(card.likes === false) {
-      setIsLiked(true);
+    if(!isLiked) {
+      onCardLike(card, isLiked);
     } else {
-      setIsLiked(false);
+      onCardLike(card, !isLiked);
     }
     
   }
