@@ -131,9 +131,9 @@ function App() {
     })
   }
                                                             
-  function handleCardLike(card, isLiked) {                         // Обработчик клика по лайку
-    console.log(card, isLiked);
-    if(!isLiked) {
+  function handleCardLike(card) {                         // Обработчик клика по лайку
+    console.log(card);
+    if(!card.likes) {
       mainApi.postUserMovie(card).then((card) => {
         console.log(card.movie);
         setSavedMovies([card.movie, ...savedMovies]);
@@ -148,15 +148,22 @@ function App() {
           console.log(err);
         })
     } else {
-      handleCardDelete(card._id);
+      const updatedSavedMovies = [...savedMovies];
+      const updatedSavedMovie = updatedSavedMovies.find(movie => movie.movieId === card.id);
+      console.log(updatedSavedMovie._id);
+      handleCardDelete(updatedSavedMovie._id);
     }
     
   }
 
-  function handleCardDelete(cardId) {                     // Обработчик клика по крестику
+  function handleCardDelete(cardId, movieId) {                     // Обработчик клика по крестику
     mainApi.deleteUserMovie(cardId).then(() => {
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
-      setMoviesFound(moviesFound.filter((card) => card._id !== cardId))
+      const updatedMoviesList = [...moviesFound];
+      const updatedMovie = updatedMoviesList.find(movie => movie.movieId === movieId);
+      console.log(updatedMovie);
+      updatedMovie.likes = false;
+      setMoviesFound(updatedMoviesList);
   })
     .catch((err) => {
       console.log(err);

@@ -8,17 +8,12 @@ export default function MoviesCard({ card, pathname, onCardLike, onCardDelete })
   const isLiked = card.likes === true ? true : false;
 
   function handleLikeClick() {
-    if(!isLiked) {
-      onCardLike(card, isLiked);
-    } else {
-      onCardLike(card, !isLiked);
-    }
-    
+    onCardLike(card);
   }
 
   function handleCardDelete(e) {
     e.preventDefault();
-    onCardDelete(card._id);
+    onCardDelete(card._id, card.movieId);
   }
 
   return (
