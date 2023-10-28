@@ -7,7 +7,7 @@ import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 
 export default function SavedMovies({ width, onCardDelete, savedMovies }) {
 
-  const [ moviesFound, setMoviesFound ] = useState([]);
+  const [ savedMoviesFound, setSavedMoviesFound ] = useState([]);
   const [ moviesDisplayed, setMoviesDisplayed ] = useState([]);
 
   const [ searchText, setSearchText ] = useState('');
@@ -20,11 +20,12 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
   function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
-      setMoviesFound(found);
+      console.log(found);
+      setSavedMoviesFound(found);
       setIsFound(true);
       displayMovies(found, []);
     } else {
-      setMoviesFound([]);
+      setSavedMoviesFound([]);
       setMoviesDisplayed([]);
       setIsFound(false);
       setErrorMessage(NOTHING_FOUND_ERROR_MESSAGE);
@@ -32,7 +33,6 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
-    console.log(savedMovies);
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     if(moviesToDisplay.movies.length > 0) {
@@ -41,7 +41,6 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
       setIsFound(false);
     }
   }
-
  
   function handleSearchClick(query) {                        // Обработчик по клику "Поиск"
     setSearchText(query);
@@ -50,12 +49,12 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
 
   function handleCheckBoxClick(checked) {                     // Обработчик по клику чекбокса
     setIsChecked(checked);
-    localStorage.setItem('isChecked', JSON.stringify(checked));
-    const found = filterMovies(moviesFound, searchText, checked);
+    const found = filterMovies(savedMoviesFound, searchText, checked);
     displayMovies(found, []);
   }
 
   useEffect(() => {                                         // Вывод сохраненных фильмов в блок результатов 
+    setSavedMoviesFound(savedMovies);
     displayMovies(savedMovies, [])
   }, [savedMovies])
 

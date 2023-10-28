@@ -41,7 +41,6 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound 
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
-    console.log(found);
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);

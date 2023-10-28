@@ -87,6 +87,8 @@ function App() {
   }
 
   function handleSignOutClick() {
+    setMoviesFound([]);
+    setSavedMovies([]);
     localStorage.clear();
     setLoggedIn(false);
     navigate('/', {replace: true});
@@ -132,14 +134,11 @@ function App() {
   }
                                                             
   function handleCardLike(card) {                         // Обработчик клика по лайку
-    console.log(card);
     if(!card.likes) {
       mainApi.postUserMovie(card).then((card) => {
-        console.log(card.movie);
         setSavedMovies([card.movie, ...savedMovies]);
         const updatedMoviesList = [...moviesFound];
         const updatedMovie = updatedMoviesList.find(movie => movie._id === card.movie.movieId);
-        console.log(updatedMovie);
         updatedMovie.likes = true;
         setMoviesFound(updatedMoviesList);
         localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
@@ -150,21 +149,20 @@ function App() {
     } else {
       const updatedSavedMovies = [...savedMovies];
       const updatedSavedMovie = updatedSavedMovies.find(movie => movie.movieId === card.id);
-      console.log(updatedSavedMovie._id);
       handleCardDelete(updatedSavedMovie._id, card.id);
     }
   }
 
   function handleCardDelete(cardId, movieId) {            // Обработчик клика по крестику
     mainApi.deleteUserMovie(cardId).then(() => {
-      console.log(movieId);
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
-      const updatedMoviesList = [...moviesFound];
-      const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
-      console.log(updatedMovie);
-      updatedMovie.likes = false;
-      setMoviesFound(updatedMoviesList);
-      localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
+      if(moviesFound.length > 0) {
+        const updatedMoviesList = [...moviesFound];
+        const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
+        updatedMovie.likes = false;
+        setMoviesFound(updatedMoviesList);
+        localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
+      }
   })
     .catch((err) => {
       console.log(err);
