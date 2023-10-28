@@ -31,7 +31,7 @@ function App() {
 
   const [ width, setWidth ] = useState(window.innerWidth);
 
-  const [ loggedIn, setLoggedIn ] = useState(false);
+  const [ loggedIn, setLoggedIn ] = useState(JSON.parse(localStorage.getItem("jwt") ? true : false));
    
   const { pathname } = useLocation();
 
@@ -41,6 +41,10 @@ function App() {
   const [ infoPopupMessage, setInfoPopupMessage ] = useState('');
 
   const navigate = useNavigate();
+
+  function handleGoBack() {
+    navigate(-1);
+  }
 
   function getUserAndMovies() {
     Promise.all([ mainApi.getUserInfo(), mainApi.getMoviesList() ])
@@ -126,7 +130,6 @@ function App() {
       setCurrentUser(res);
       setIsInfoPopupOpen(true);
       setInfoPopupMessage(PROFILE_UPDATE_SUCCESS_MESSAGE);
-      navigate('/movies', {replace: true});
     })
     .catch((err) => {
       handleError(err);
@@ -185,13 +188,12 @@ function App() {
         mainApi.checkToken(jwt)
         .then((res) => {
             setLoggedIn(true); 
-            getUserAndMovies();      
-            navigate("/", {replace: true})
+            getUserAndMovies();
+            console.log(loggedIn);      
           })
         .catch((err) => {
           console.log(err);
           setLoggedIn(false);
-          navigate("/", {replace: true})
         })  
       }
     } 
@@ -231,15 +233,19 @@ function App() {
                                                            onSignout={ handleSignOutClick }
                                                            onUpdate={ handleUpdateUser }
                                                            errorMessage={ errorMessage } /> } />
+          { !loggedIn ? 
           <Route path="/signin" element={ <Login onLogo={ handleLogoClick }
                                                  onSignup={ handleSignupClick }
                                                  onLogin={ handleLogin }
                                                  errorMessage={ errorMessage } /> } />
+          : null }
+          { !loggedIn ?
           <Route path="/signup" element={ <Register onLogo={ handleLogoClick }
                                                     onSignin={ handleSigninClick }
                                                     onRegister={ handleRegister }
                                                     errorMessage={ errorMessage } /> } />
-          <Route path="*" element={ <PageNotFound /> } />
+          : null }
+          <Route path="*" element={ <PageNotFound goBack={ handleGoBack }/> } />
         </Routes>
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies") && <Footer /> }
         <InfoPopup isOpen={ isInfoPopupOpen } onClose={ () => setIsInfoPopupOpen(false) } message={ infoPopupMessage } />
