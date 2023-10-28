@@ -151,11 +151,11 @@ function App() {
       const updatedSavedMovies = [...savedMovies];
       const updatedSavedMovie = updatedSavedMovies.find(movie => movie.movieId === card.id);
       console.log(updatedSavedMovie._id);
-      handleCardDelete(updatedSavedMovie._id);
+      handleCardDelete(updatedSavedMovie._id, card.id);
     }
   }
 
-  function handleCardDelete(cardId, movieId) {                     // Обработчик клика по крестику
+  function handleCardDelete(cardId, movieId) {            // Обработчик клика по крестику
     mainApi.deleteUserMovie(cardId).then(() => {
       console.log(movieId);
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
