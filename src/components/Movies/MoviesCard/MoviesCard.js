@@ -5,6 +5,7 @@ export default function MoviesCard({ card, pathname, onCardLike, onCardDelete })
   
   const hours = Math.floor(card.duration / 60);
   const minutes = card.duration % 60;
+
   const isLiked = card.likes === true ? true : false;
 
   function handleLikeClick() {

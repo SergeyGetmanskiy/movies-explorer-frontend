@@ -153,14 +153,14 @@ function App() {
       console.log(updatedSavedMovie._id);
       handleCardDelete(updatedSavedMovie._id);
     }
-    
   }
 
   function handleCardDelete(cardId, movieId) {                     // Обработчик клика по крестику
     mainApi.deleteUserMovie(cardId).then(() => {
+      console.log(movieId);
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
       const updatedMoviesList = [...moviesFound];
-      const updatedMovie = updatedMoviesList.find(movie => movie.movieId === movieId);
+      const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
       console.log(updatedMovie);
       updatedMovie.likes = false;
       setMoviesFound(updatedMoviesList);
