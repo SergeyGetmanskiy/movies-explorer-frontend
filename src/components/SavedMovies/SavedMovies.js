@@ -5,9 +5,8 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList"
 import { NOTHING_FOUND_ERROR_MESSAGE } from '../../utils/constants'; 
 import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 
-export default function SavedMovies({ width, onCardDelete, savedMovies, setSavedMovies }) {
+export default function SavedMovies({ width, onCardDelete, savedMovies }) {
 
-  const [ savedMoviesFound, setSavedMoviesFound ] = useState([]);
   const [ moviesDisplayed, setMoviesDisplayed ] = useState([]);
 
   const [ searchText, setSearchText ] = useState('');
@@ -20,12 +19,9 @@ export default function SavedMovies({ width, onCardDelete, savedMovies, setSaved
   function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
-      console.log(found);
-      setSavedMoviesFound(found);
       setIsFound(true);
       displayMovies(found, []);
     } else {
-      setSavedMoviesFound([]);
       setMoviesDisplayed([]);
       setIsFound(false);
     }
