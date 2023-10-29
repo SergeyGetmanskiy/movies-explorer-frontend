@@ -34,11 +34,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies, setSaved
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
-    if(moviesToDisplay.movies.length > 0) {
-      setIsFound(true);
-    } else {
-      setIsFound(false);
-    }
+
   }
  
   function handleSearchClick(query) {                        // Обработчик по клику "Поиск"
@@ -48,8 +44,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies, setSaved
 
   function handleCheckBoxClick(checked) {                     // Обработчик по клику чекбокса
     setIsChecked(checked);
-    const found = filterMovies(savedMoviesFound, searchText, checked);
-    console.log(savedMoviesFound);
+    const found = filterMovies(savedMovies, searchText, checked);
     if(found.length === 0) {
       setIsFound(false);
     } else {
@@ -58,12 +53,9 @@ export default function SavedMovies({ width, onCardDelete, savedMovies, setSaved
     displayMovies(found, []);
   }
 
-
-
-
-  useEffect(() => {                                         // Вывод сохраненных фильмов в блок результатов 
-    displayMovies(savedMovies, [])
-  }, [savedMovies])
+  useEffect(() => {                                         // Вывод сохраненных фильмов в блок результатов при изменении 
+    handleMovieSearch(savedMovies, searchText);             // списка сохраненных фильмов или поискового запроса 
+  }, [savedMovies, searchText])
 
   return (
     <main className="movies">
