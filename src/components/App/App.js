@@ -152,16 +152,16 @@ function App() {
     }
   }
 
-  function handleCardDelete(cardId, movieId) {            // Обработчик клика по крестику
+  function handleCardDelete(cardId, movieId) {            // Обработчик клика по крестику и повторного клика по лайку
+    if(moviesFound.length > 0) {
+      const updatedMoviesList = [...moviesFound];
+      const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
+      updatedMovie.likes = false;
+      setMoviesFound(updatedMoviesList);
+      localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
+    }
     mainApi.deleteUserMovie(cardId).then(() => {
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
-      if(moviesFound.length > 0) {
-        const updatedMoviesList = [...moviesFound];
-        const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
-        updatedMovie.likes = false;
-        setMoviesFound(updatedMoviesList);
-        localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
-      }
   })
     .catch((err) => {
       console.log(err);

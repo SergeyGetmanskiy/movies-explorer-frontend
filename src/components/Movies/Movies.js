@@ -116,6 +116,10 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
     checkLocalStorage();
   }, [])
 
+  useEffect(() => {
+    displayMovies(moviesFound, [])
+  }, [moviesFound])
+
   return (
     <main className="movies">
       <div className="movies__container">
