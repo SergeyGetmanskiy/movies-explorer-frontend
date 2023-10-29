@@ -23,7 +23,9 @@ export function checkLikes(moviesTotal, moviesSaved) {
   } else {
     const moviesSavedIds = moviesSaved.map(movie => movie.movieId);
     const moviesToReturn = moviesTotal.map((movie) => {
-      return { likes: moviesSavedIds.includes(movie.id) ? true : false, ...movie}
+      const isLiked = moviesSavedIds.includes(movie.id);
+      movie.likes = isLiked;
+      return movie
     })
     return moviesToReturn
   }

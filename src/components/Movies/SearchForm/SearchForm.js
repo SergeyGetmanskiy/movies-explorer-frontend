@@ -14,6 +14,7 @@ export default function SearchForm( { onSearch, onCheckbox, isChecked } ) {
     if (e.target[0].validity.valid) {
       setIsInputValid(true);
       onSearch(e.target[0].value);
+      setValue('');
     } else { 
       setIsInputValid(false);
     }

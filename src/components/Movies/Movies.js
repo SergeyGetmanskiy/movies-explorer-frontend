@@ -26,8 +26,8 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
   const [ errorMessage, setErrorMessage ] = useState('');
 
   function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
-    const moviesCheckedforLikes = checkLikes(movies, savedMovies);
-    const found = filterMovies(moviesCheckedforLikes, searchText, isChecked);
+    
+    const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
       setMoviesFound(found);
       setIsFound(true);
@@ -69,8 +69,9 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
           thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
           ...movie
         }});
-        setMovies(newMovies());
-        handleMovieSearch(newMovies(), query);
+        const moviesCheckedforLikes = checkLikes(newMovies(), savedMovies);
+        setMovies(moviesCheckedforLikes);
+        handleMovieSearch(moviesCheckedforLikes, query);
       })
       .catch((err) => {
         console.log(err);
