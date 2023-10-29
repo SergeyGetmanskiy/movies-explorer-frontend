@@ -163,6 +163,11 @@ function App() {
     }
     mainApi.deleteUserMovie(cardId).then(() => {
       setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
+      const updatedMoviesList = [...moviesFound];
+      const updatedMovie = updatedMoviesList.find(movie => movie._id === movieId);
+      updatedMovie.likes = false;
+      setMoviesFound(updatedMoviesList);
+      localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
   })
     .catch((err) => {
       console.log(err);
