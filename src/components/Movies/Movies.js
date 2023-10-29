@@ -6,10 +6,10 @@ import MoviesCardList from "./MoviesCardList/MoviesCardList"
 import MoviesMore from "./MoviesMore/MoviesMore"
 import { NOTHING_FOUND_ERROR_MESSAGE,
          SERVER_ERROR_MESSAGE } from '../../utils/constants'; 
-import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
+import { filterMovies, checkLikes, getMoviesToDisplay } from '../../utils/FilterMovies';
 import { moviesApi } from '../../utils/MoviesApi';
 
-export default function Movies({ width, onCardLike, moviesFound, setMoviesFound }) {
+export default function Movies({ width, onCardLike, moviesFound, setMoviesFound, savedMovies }) {
   
   const [ movies, setMovies ] = useState([]);
 
@@ -41,6 +41,8 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound 
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
+   // const moviesCheckedforLikes = 
+    checkLikes(found, savedMovies);
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
@@ -60,11 +62,13 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound 
       moviesApi.getMovies()                                  // Загрузка фильмов и поиск при первом валидном поисковом запросе
       .then((movies) => {
         setIsLoading(false);
-        const newMovies = () => movies.map((movie) => { return { likes: false,
-                                                                 _id: movie.id,
-                                                                 imageFull: `https://api.nomoreparties.co${movie.image.url}`,
-                                                                 thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
-                                                                 ...movie }});
+        const newMovies = () => movies.map((movie) => { return {
+          likes: false,
+          _id: movie.id,
+          imageFull: `https://api.nomoreparties.co${movie.image.url}`,
+          thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
+          ...movie
+        }});
         setMovies(newMovies());
         handleMovieSearch(newMovies(), query);
       })
@@ -83,6 +87,11 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound 
     setIsChecked(checked);
     localStorage.setItem('isChecked', JSON.stringify(checked));
     const found = filterMovies(moviesFound, searchText, checked);
+    if(found.length === 0) {
+      setIsFound(false);
+    } else {
+      setIsFound(true);
+    }
     displayMovies(found, []);
   }
 

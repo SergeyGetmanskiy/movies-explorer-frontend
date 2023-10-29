@@ -26,11 +26,7 @@ export default function MoviesCard({ card, pathname, onCardLike, onCardDelete })
   return (
     <div className="card">
       <div className="card__top">
-        <img className="card__image"
-              src={ card.imageFull }
-              alt="foto"
-              onClick={ handleCardClick }
-        />
+        <img className="card__image" src={ card.imageFull } alt="foto" onClick={ handleCardClick }/>
       </div>
       <div className="card__bottom">
         <h2 className="text card__title">{ card.nameRU }</h2>

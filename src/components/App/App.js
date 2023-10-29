@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes,
-         Route,
-         useLocation,
-         useNavigate } from 'react-router-dom';       
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';       
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -14,8 +11,7 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Footer from '../Footer/Footer';
 import InfoPopup from '../InfoPopup/InfoPopup';
 
-import { REGISTER_SUCCESS_MESSAGE,
-         PROFILE_UPDATE_SUCCESS_MESSAGE } from '../../utils/constants';
+import { REGISTER_SUCCESS_MESSAGE, PROFILE_UPDATE_SUCCESS_MESSAGE } from '../../utils/constants';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -187,9 +183,8 @@ function App() {
       if (jwt) {
         mainApi.checkToken(jwt)
         .then((res) => {
-            setLoggedIn(true); 
-            getUserAndMovies();
-            console.log(loggedIn);      
+          setLoggedIn(true); 
+          getUserAndMovies();      
           })
         .catch((err) => {
           console.log(err);
@@ -205,45 +200,57 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies" || pathname === "/profile" ) && 
-        <Header width={ width }
-                loggedIn={ loggedIn }
-                pathname={ pathname }
-                onLogo={ handleLogoClick }
-                onMovies={ handleMoviesClick }
-                onSavedMovies={ handleSavedMoviesClick }  
-                onProfile={ handleProfileClick }
-                onRegister={ handleSignupClick }
-                onSignin={ handleSigninClick }     
+        <Header
+        width={ width }
+        loggedIn={ loggedIn }
+        pathname={ pathname }
+        onLogo={ handleLogoClick }
+        onMovies={ handleMoviesClick }
+        onSavedMovies={ handleSavedMoviesClick }  
+        onProfile={ handleProfileClick }
+        onRegister={ handleSignupClick }
+        onSignin={ handleSigninClick }     
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
-          <Route path="/movies" element={ <ProtectedRoute  element={ Movies }
-                                                           loggedIn={ loggedIn }
-                                                           width={ width }
-                                                           onCardLike={ handleCardLike }
-                                                           moviesFound={ moviesFound }
-                                                           setMoviesFound={ setMoviesFound } /> } /> 
-          <Route path="/saved-movies" element={ <ProtectedRoute element={ SavedMovies }
-                                                                loggedIn={ loggedIn }
-                                                                width={ width }
-                                                                savedMovies={ savedMovies }
-                                                                onCardDelete={ handleCardDelete } /> } />
-          <Route path="/profile" element={ <ProtectedRoute element={ Profile }
-                                                           loggedIn={ loggedIn }
-                                                           onSignout={ handleSignOutClick }
-                                                           onUpdate={ handleUpdateUser }
-                                                           errorMessage={ errorMessage } /> } />
+          <Route path="/movies" element={ <ProtectedRoute
+          element={ Movies }
+          loggedIn={ loggedIn }
+          width={ width }
+          onCardLike={ handleCardLike }
+          moviesFound={ moviesFound }
+          setMoviesFound={ setMoviesFound }
+          savedMovies={ savedMovies } /> }
+          /> 
+          <Route path="/saved-movies" element={ <ProtectedRoute
+          element={ SavedMovies }
+          loggedIn={ loggedIn }
+          width={ width }
+          savedMovies={ savedMovies }
+          onCardDelete={ handleCardDelete } /> } 
+          />
+          <Route path="/profile" element={ <ProtectedRoute
+          element={ Profile }
+          loggedIn={ loggedIn }
+          onSignout={ handleSignOutClick }
+          onUpdate={ handleUpdateUser }
+          errorMessage={ errorMessage } /> } 
+          />
           { !loggedIn ? 
-          <Route path="/signin" element={ <Login onLogo={ handleLogoClick }
-                                                 onSignup={ handleSignupClick }
-                                                 onLogin={ handleLogin }
-                                                 errorMessage={ errorMessage } /> } />
+          <Route path="/signin" element={ <Login
+          onLogo={ handleLogoClick }
+          onSignup={ handleSignupClick }
+          onLogin={ handleLogin }
+          errorMessage={ errorMessage } /> } 
+          />
           : null }
           { !loggedIn ?
-          <Route path="/signup" element={ <Register onLogo={ handleLogoClick }
-                                                    onSignin={ handleSigninClick }
-                                                    onRegister={ handleRegister }
-                                                    errorMessage={ errorMessage } /> } />
+          <Route path="/signup" element={ <Register
+          onLogo={ handleLogoClick }
+          onSignin={ handleSigninClick }
+          onRegister={ handleRegister }
+          errorMessage={ errorMessage } /> } 
+          />
           : null }
           <Route path="*" element={ <PageNotFound goBack={ handleGoBack }/> } />
         </Routes>

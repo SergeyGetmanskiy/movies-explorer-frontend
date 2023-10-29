@@ -22,31 +22,31 @@ export default function Navigation({ width, pathname, onMovies, onSavedMovies, o
     return (
       <section className="navigation">
         <ButtonNavigation 
-          className={`navigation__button-navigation ${ pathname === "/movies" && "navigation__button-navigation_active" }`}
-          buttonTitle="Фильмы" 
-          onClick={ onMovies } 
+        className={`navigation__button-navigation ${ pathname === "/movies" && "navigation__button-navigation_active" }`}
+        buttonTitle="Фильмы" 
+        onClick={ onMovies } 
         />
         <ButtonNavigation 
-          className={`navigation__button-navigation ${ pathname === "/saved-movies" && "navigation__button-navigation_active" }`}
-          buttonTitle="Сохранённые фильмы" 
-          onClick={ onSavedMovies } 
+        className={`navigation__button-navigation ${ pathname === "/saved-movies" && "navigation__button-navigation_active" }`}
+        buttonTitle="Сохранённые фильмы" 
+        onClick={ onSavedMovies } 
         />
         <ButtonProfile 
-          className="navigation__button-profile" 
-          pathname={ pathname } 
-          onClick={ handleClick } 
+        className="navigation__button-profile" 
+        pathname={ pathname } 
+        onClick={ handleClick } 
         />
       </section>
     )
   }
     else {
       return (<NavigationPopup
-                pathname={pathname}
-                onMovies={onMovies}
-                onSavedMovies={onSavedMovies}
-                onProfile={onProfile}
-                onLogo={onLogo}
-                setIsPopupOpen={setIsPopupOpen}
+              pathname={pathname}
+              onMovies={onMovies}
+              onSavedMovies={onSavedMovies}
+              onProfile={onProfile}
+              onLogo={onLogo}
+              setIsPopupOpen={setIsPopupOpen}
               />)
     }    
   }

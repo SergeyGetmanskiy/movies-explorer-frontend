@@ -130,18 +130,6 @@ class MainApi {
       })
     .then(this._checkServerResponse)
   }
-
- /* changeLikeCardStatus(cardId, isLiked) {
-    const requestMethod = isLiked ? "PUT": "DELETE"; 
-    return fetch(`${this._url}/cards/${cardId}/likes`, {
-      method: requestMethod,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this._getToken()}`,
-      },
-      })
-    .then(this._checkServerResponse)
-  }*/
 }; 
 
 export const mainApi = new MainApi({

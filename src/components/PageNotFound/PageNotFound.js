@@ -2,8 +2,6 @@ import ButtonText from "../UI/Buttons/ButtonText/ButtonText"
 
 export default function PageNotFound({ goBack }) {
 
-
-
   return (
     <main className="page-not-found">
       <div className="page-not-found__container">

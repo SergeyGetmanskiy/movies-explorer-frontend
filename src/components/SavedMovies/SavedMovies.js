@@ -15,7 +15,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
 
   const [ isFound, setIsFound ] = useState(true); 
 
-  const [ errorMessage, setErrorMessage ] = useState('');
+  const errorMessage = NOTHING_FOUND_ERROR_MESSAGE;
 
   function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
@@ -28,7 +28,6 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
       setSavedMoviesFound([]);
       setMoviesDisplayed([]);
       setIsFound(false);
-      setErrorMessage(NOTHING_FOUND_ERROR_MESSAGE);
     }
   }
 
@@ -50,6 +49,11 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
   function handleCheckBoxClick(checked) {                     // Обработчик по клику чекбокса
     setIsChecked(checked);
     const found = filterMovies(savedMoviesFound, searchText, checked);
+    if(found.length === 0) {
+      setIsFound(false);
+    } else {
+      setIsFound(true);
+    }
     displayMovies(found, []);
   }
 

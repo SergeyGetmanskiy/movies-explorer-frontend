@@ -1,5 +1,8 @@
 export function filterMovies(movies, searchText, isChecked) {
-  let result = movies.filter((movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()) || movie.nameEN.toLowerCase().includes(searchText.toLowerCase()));
+  let result = movies.filter(
+  (movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()) ||
+  movie.nameEN.toLowerCase().includes(searchText.toLowerCase())
+  );
   if(result.length > 0) {
     if(isChecked) {
       result = result.filter((movie) => movie.duration <= 40);
@@ -13,6 +16,20 @@ export function filterMovies(movies, searchText, isChecked) {
     return []
   };
 }
+
+export function checkLikes(moviesTotal, moviesSaved) {
+  console.log(moviesTotal);
+  console.log(moviesSaved);
+  const moviesSavedIds = moviesSaved.map(movie => movie.movieId);
+  console.log(moviesSavedIds);
+  const moviesToReturn = moviesTotal.map((movie) => {
+    console.log(movie.id);
+    return { likes: moviesSavedIds.includes(movie.id) ? true : false, ...movie}
+  })
+  console.log(moviesToReturn);
+  return moviesToReturn
+}
+
 
 export function getMoviesToDisplay(moviesTotal, moviesDisplayed, width) {
   let requiredLength;
@@ -28,18 +45,26 @@ export function getMoviesToDisplay(moviesTotal, moviesDisplayed, width) {
     cardsInARow = 2;
   }
   if((moviesTotal.length > requiredLength) && (moviesDisplayed.length === 0)) {
-    return { movies: moviesTotal.slice(0, requiredLength),
-             isMore: true }
+    return {
+      movies: moviesTotal.slice(0, requiredLength),
+      isMore: true,
+    }
   } else if ((moviesTotal.length > requiredLength) && (moviesDisplayed.length !== 0)) {
       if((moviesTotal.length - (moviesDisplayed.length) <= cardsInARow)) {
-        return { movies: moviesTotal.slice(0, moviesDisplayed.length + (moviesTotal.length - moviesDisplayed.length)),
-                isMore: false } 
+        return {
+          movies: moviesTotal.slice(0, moviesDisplayed.length + (moviesTotal.length - moviesDisplayed.length)),
+          isMore: false,
+        } 
       } else {
-        return { movies: moviesTotal.slice(0, cardsInARow + moviesDisplayed.length),
-                isMore: true } 
+        return {
+          movies: moviesTotal.slice(0, cardsInARow + moviesDisplayed.length),
+          isMore: true,
+        } 
       }
   } else {
-    return { movies: moviesTotal,
-             isMore: false }
+    return {
+      movies: moviesTotal,
+      isMore: false,
+    }
   } 
 }

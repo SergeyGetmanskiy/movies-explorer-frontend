@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox"
 
 export default function SearchForm( { onSearch, onCheckbox, isChecked } ) {
@@ -18,20 +18,16 @@ export default function SearchForm( { onSearch, onCheckbox, isChecked } ) {
   }
 
   return (
-    <form name="search-form"
-          noValidate="noValidate"
-          onSubmit={ handleSubmit }
-          className="search-form">
+    <form name="search-form" noValidate="noValidate" onSubmit={ handleSubmit } className="search-form">
       <div className="search-form__input">
-        <input className="search-form__search-field"
-               type="search"
-               placeholder="Фильм"
-               name="search"
-               required="required"
+        <input
+        className="search-form__search-field"
+        type="search"
+        placeholder="Фильм"
+        name="search"
+        required="required"
         />
-        <button className="search-form__button"
-                type="submit"
-        />
+        <button className="search-form__button" type="submit" />
         <span className={`text search-form__error ${ isInputValid ? '' : 'search-form__error_visible' }`}>{errorMessage}</span>
       </div>
       <FilterCheckbox className="search-form__input" onCheckbox = { onCheckbox } isChecked={ isChecked } /> 

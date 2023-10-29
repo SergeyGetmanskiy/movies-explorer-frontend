@@ -21,40 +21,41 @@ export default function Login({ onLogo, onSignup, onLogin, errorMessage }) {
   }
 
   return (
-    <Auth authHeading="Рады видеть!"
-          submitButtonTitle="Войти"
-          textButtonTitle="Регистрация"
-          textButtonMessage="Ещё не зарегистрированы?"
-          errorMessage={ errorMessage }
-          onLogo={ onLogo }
-          onSubmit={ handleSubmit }
-          isSubmitButtonActive={ isEmailInputValid && isPasswordInputValid }
-          onTextButton={ onSignup }
+    <Auth
+    authHeading="Рады видеть!"
+    submitButtonTitle="Войти"
+    textButtonTitle="Регистрация"
+    textButtonMessage="Ещё не зарегистрированы?"
+    errorMessage={ errorMessage }
+    onLogo={ onLogo }
+    onSubmit={ handleSubmit }
+    isSubmitButtonActive={ isEmailInputValid && isPasswordInputValid }
+    onTextButton={ onSignup }
     >
       <InputAuth
-        name="email"
-        id="input-auth-email"
-        type="email"
-        placeholder="E-mail"
-        required={ true }
-        value={ email }
-        pattern="^\S+@\S+\.\S+$"
-        setValue={setEmail}
-        setIsInputValid={setIsEmailInputValid}
-        isInputValid={isEmailInputValid}
+      name="email"
+      id="input-auth-email"
+      type="email"
+      placeholder="E-mail"
+      required={ true }
+      value={ email }
+      pattern="^\S+@\S+\.\S+$"
+      setValue={setEmail}
+      setIsInputValid={setIsEmailInputValid}
+      isInputValid={isEmailInputValid}
       />
       <InputAuth
-        name="password"
-        id="input-auth-password"
-        type="password"
-        placeholder="Пароль"
-        required={ true }
-        minLength={8}
-        value={ password }
-        pattern="^[A-Za-z0-9]*"
-        setValue={setPassword}
-        setIsInputValid={setIsPasswordInputValid}
-        isInputValid={ isPasswordInputValid }
+      name="password"
+      id="input-auth-password"
+      type="password"
+      placeholder="Пароль"
+      required={ true }
+      minLength={8}
+      value={ password }
+      pattern="^[A-Za-z0-9]*"
+      setValue={setPassword}
+      setIsInputValid={setIsPasswordInputValid}
+      isInputValid={ isPasswordInputValid }
       />
     </Auth>
   )

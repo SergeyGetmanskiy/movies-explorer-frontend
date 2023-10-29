@@ -22,10 +22,7 @@ export default function InfoPopup ({ isOpen, onClose, message }) {
            onMouseDown={(e) => e.stopPropagation()}>
         <div className="popup__info">
           <h2 className="popup__title">{message}</h2>
-          <ButtonBar className="popup__button-bar"
-                     onClick={ handleClick }
-                     buttonTitle="OK"
-                     isButtonActive={ true } />
+          <ButtonBar className="popup__button-bar" onClick={ handleClick } buttonTitle="OK" isButtonActive={ true } />
         </div> 
       </div>
     </section>
