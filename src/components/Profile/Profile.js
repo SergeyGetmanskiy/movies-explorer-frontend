@@ -26,6 +26,7 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    setIsButtonActive(false);
     onUpdate({
       name: name,
       email: email,
@@ -82,7 +83,7 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
         { isInputDisabled ?
           <ButtonText className={`profile__signout-button`} buttonTitle={"Выйти из аккаунта"} onClick={ onSignout } />
           :
-          <ButtonBar className="profile__button-bar" buttonTitle="Сохранить" isButtonActive={ isButtonActive }>
+          <ButtonBar className="profile__button-bar" buttonTitle="Сохранить" isButtonActive={ isButtonActive } >
             <ApiErrorMessage errorMessage={errorMessage}/>
           </ButtonBar>
         }        

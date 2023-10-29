@@ -13,6 +13,9 @@ export default function Login({ onLogo, onSignup, onLogin, errorMessage }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const submitButton = document.getElementById('submit-button');
+    submitButton.setAttribute('disabled', 'disabled');
+    submitButton.classList.add("button-bar__button_disabled");
     const data = {
       email: e.target[1].value,
       password: e.target[2].value,

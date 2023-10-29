@@ -11,12 +11,13 @@ export default function Register({ onLogo, onSignin, onRegister, errorMessage })
 
   const [ isNameInputValid, setIsNameInputValid ] = useState(true);
   const [ isEmailInputValid, setIsEmailInputValid ] = useState(true);
-  const [ isPasswordInputValid, setIsPasswordInputValid ] = useState(false);
-
-  
+  const [ isPasswordInputValid, setIsPasswordInputValid ] = useState(false); 
 
   function handleSubmit(e) {
     e.preventDefault();
+    const submitButton = document.getElementById('submit-button');
+    submitButton.setAttribute('disabled', 'disabled');
+    submitButton.classList.add("button-bar__button_disabled");
     const data = {
       name: e.target[1].value,
       email: e.target[2].value,

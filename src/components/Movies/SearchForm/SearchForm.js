@@ -32,7 +32,7 @@ export default function SearchForm( { onSearch, onCheckbox, isChecked } ) {
         value={ value ?? '' }
         onChange={ (e) => setValue(e.target.value) }
         />
-        <button className="search-form__button" type="submit"/>
+        <button className={`search-form__button`} type="submit" />
         <span className={`text search-form__error ${ isInputValid ? '' : 'search-form__error_visible' }`}>{errorMessage}</span>
       </div>
       <FilterCheckbox className="search-form__input" onCheckbox = { onCheckbox } isChecked={ isChecked } /> 

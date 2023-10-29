@@ -97,6 +97,7 @@ class MainApi {
     .then(this._checkServerResponse)}
 
   postUserMovie(data) {
+    console.log(data);
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: {
