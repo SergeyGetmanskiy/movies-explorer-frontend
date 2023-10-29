@@ -5,7 +5,7 @@ import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList"
 import { NOTHING_FOUND_ERROR_MESSAGE } from '../../utils/constants'; 
 import { filterMovies, getMoviesToDisplay } from '../../utils/FilterMovies';
 
-export default function SavedMovies({ width, onCardDelete, savedMovies }) {
+export default function SavedMovies({ width, onCardDelete, savedMovies, setSavedMovies }) {
 
   const [ savedMoviesFound, setSavedMoviesFound ] = useState([]);
   const [ moviesDisplayed, setMoviesDisplayed ] = useState([]);
@@ -49,6 +49,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
   function handleCheckBoxClick(checked) {                     // Обработчик по клику чекбокса
     setIsChecked(checked);
     const found = filterMovies(savedMoviesFound, searchText, checked);
+    console.log(savedMoviesFound);
     if(found.length === 0) {
       setIsFound(false);
     } else {
@@ -57,8 +58,10 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
     displayMovies(found, []);
   }
 
+
+
+
   useEffect(() => {                                         // Вывод сохраненных фильмов в блок результатов 
-    setSavedMoviesFound(savedMovies);
     displayMovies(savedMovies, [])
   }, [savedMovies])
 
