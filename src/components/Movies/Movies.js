@@ -26,7 +26,8 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
   const [ errorMessage, setErrorMessage ] = useState('');
 
   function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
-    const found = filterMovies(movies, searchText, isChecked);
+    const moviesCheckedforLikes = checkLikes(movies, savedMovies);
+    const found = filterMovies(moviesCheckedforLikes, searchText, isChecked);
     if(found.length > 0) {
       setMoviesFound(found);
       setIsFound(true);
@@ -41,9 +42,8 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
   }
 
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
-   // const moviesCheckedforLikes = 
-    checkLikes(found, savedMovies);
-    const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
+    const moviesCheckedforLikes = checkLikes(found, savedMovies);
+    const moviesToDisplay = getMoviesToDisplay(moviesCheckedforLikes, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
     if(moviesToDisplay.movies.length > 0) {

@@ -18,16 +18,15 @@ export function filterMovies(movies, searchText, isChecked) {
 }
 
 export function checkLikes(moviesTotal, moviesSaved) {
-  console.log(moviesTotal);
-  console.log(moviesSaved);
-  const moviesSavedIds = moviesSaved.map(movie => movie.movieId);
-  console.log(moviesSavedIds);
-  const moviesToReturn = moviesTotal.map((movie) => {
-    console.log(movie.id);
-    return { likes: moviesSavedIds.includes(movie.id) ? true : false, ...movie}
-  })
-  console.log(moviesToReturn);
-  return moviesToReturn
+  if(moviesSaved.length === 0) {
+    return moviesTotal
+  } else {
+    const moviesSavedIds = moviesSaved.map(movie => movie.movieId);
+    const moviesToReturn = moviesTotal.map((movie) => {
+      return { likes: moviesSavedIds.includes(movie.id) ? true : false, ...movie}
+    })
+    return moviesToReturn
+  }
 }
 
 
