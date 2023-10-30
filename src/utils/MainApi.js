@@ -97,7 +97,6 @@ class MainApi {
     .then(this._checkServerResponse)}
 
   postUserMovie(data) {
-    console.log(data);
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: {
@@ -113,7 +112,7 @@ class MainApi {
         imageFull: data.imageFull,
         trailerLink: data.trailerLink,
         thumbnail: data.thumbnail,
-        movieId: data.id,
+        movieId: data.movieId,
         nameRU: data.nameRU,
         nameEN: data.nameEN,
         likes: true,

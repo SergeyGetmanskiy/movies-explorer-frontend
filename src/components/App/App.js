@@ -133,7 +133,7 @@ function App() {
   }
                                                             
   function handleCardLike(card) {                         // Обработчик клика по лайку
-    console.log(card);
+    card.movieId = card.id;
     if(!card.likes) {
       mainApi.postUserMovie(card).then((card) => {
         setSavedMovies([card.movie, ...savedMovies]);
