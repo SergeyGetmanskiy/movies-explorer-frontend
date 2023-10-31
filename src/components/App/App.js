@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';       
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';       
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -205,6 +205,10 @@ function App() {
   checkToken();
   }, []) 
 
+  useEffect(() => {
+    
+  })
+
  
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -253,7 +257,7 @@ function App() {
           onLogin={ handleLogin }
           errorMessage={ errorMessage } /> } 
           />
-          : null }
+          : <Route path="/signin" element={ <Navigate to="/" replace/> } /> }
           { !loggedIn ?
           <Route path="/signup" element={ <Register
           onLogo={ handleLogoClick }
@@ -261,7 +265,7 @@ function App() {
           onRegister={ handleRegister }
           errorMessage={ errorMessage } /> } 
           />
-          : null }
+          : <Route path="/signup" element={ <Navigate to="/" replace/> } /> }
           <Route path="*" element={ <PageNotFound goBack={ handleGoBack }/> } />
         </Routes>
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies") && <Footer /> }
