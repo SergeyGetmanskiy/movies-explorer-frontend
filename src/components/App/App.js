@@ -95,6 +95,9 @@ function App() {
   }
 
   function handleRegister(data) {                           // Регистрация
+    const submitButton = document.getElementById('submit-button');
+    submitButton.setAttribute('disabled', 'disabled');
+    submitButton.classList.add("button-bar__button_disabled");
     mainApi.register(data)
     .then((res) => {
       handleLogin(data);
@@ -103,6 +106,8 @@ function App() {
     })
     .catch((err) => {
       handleError(err);
+      submitButton.removeAttribute('disabled', 'disabled');
+      submitButton.classList.remove("button-bar__button_disabled");
     })  
   }
 
@@ -257,7 +262,7 @@ function App() {
           onLogin={ handleLogin }
           errorMessage={ errorMessage } /> } 
           />
-          : <Route path="/signin" element={ <Navigate to="/" replace/> } /> }
+          : <Route path="/signin" element={ <Navigate to="/" replace /> } /> }
           { !loggedIn ?
           <Route path="/signup" element={ <Register
           onLogo={ handleLogoClick }
@@ -265,7 +270,7 @@ function App() {
           onRegister={ handleRegister }
           errorMessage={ errorMessage } /> } 
           />
-          : <Route path="/signup" element={ <Navigate to="/" replace/> } /> }
+          : <Route path="/signup" element={ <Navigate to="/" replace /> } /> }
           <Route path="*" element={ <PageNotFound goBack={ handleGoBack }/> } />
         </Routes>
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies") && <Footer /> }

@@ -15,16 +15,13 @@ export default function Register({ onLogo, onSignin, onRegister, errorMessage })
 
   function handleSubmit(e) {
     e.preventDefault();
-    const submitButton = document.getElementById('submit-button');
-    submitButton.setAttribute('disabled', 'disabled');
-    submitButton.classList.add("button-bar__button_disabled");
     const data = {
       name: e.target[1].value,
       email: e.target[2].value,
       password: e.target[3].value,
     }
     onRegister(data);
-  }
+  } 
 
   return (
     <Auth

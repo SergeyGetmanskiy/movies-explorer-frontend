@@ -16,12 +16,13 @@ export default function InputAuth({
 
   const [ errorMessage, setErrorMessage ] = useState('');
   
-  function handleChange(e) {
-    setValue(e.target.value);
+  function handleChange(e) {    
     checkInputValidity(e);
+    setValue(e.target.value);
   }
 
   function checkInputValidity(e) {
+    console.log(e.target.validity.valid);
     if (!e.target.validity.valid) {
       setErrorMessage(e.target.validationMessage);
       setIsInputValid(false);
@@ -44,7 +45,7 @@ export default function InputAuth({
       maxLength={maxLength}
       pattern={pattern}
       value={value}
-      onInput={handleChange}
+      onChange={handleChange}
       autoComplete="on"
       />
       <span className={`text input-auth__error ${ isInputValid ? '' : 'input-auth__error_visible' }`}>{errorMessage}</span>
