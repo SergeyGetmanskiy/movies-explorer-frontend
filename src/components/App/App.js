@@ -38,6 +38,16 @@ function App() {
 
   const navigate = useNavigate();
 
+  function disableSubmitButton(submitButton) {
+    submitButton.setAttribute('disabled', 'disabled');
+    submitButton.classList.add("button-bar__button_disabled");
+  }
+
+  function enableSubmitButton(submitButton) {
+    submitButton.removeAttribute('disabled', 'disabled');
+    submitButton.classList.remove("button-bar__button_disabled");
+  }
+
   function handleGoBack() {
     navigate(-1);
   }
@@ -96,8 +106,7 @@ function App() {
 
   function handleRegister(data) {                           // Регистрация
     const submitButton = document.getElementById('submit-button');
-    submitButton.setAttribute('disabled', 'disabled');
-    submitButton.classList.add("button-bar__button_disabled");
+    disableSubmitButton(submitButton);    
     mainApi.register(data)
     .then((res) => {
       handleLogin(data);
@@ -106,12 +115,13 @@ function App() {
     })
     .catch((err) => {
       handleError(err);
-      submitButton.removeAttribute('disabled', 'disabled');
-      submitButton.classList.remove("button-bar__button_disabled");
+      enableSubmitButton(submitButton);
     })  
   }
 
   function handleLogin(data) {                              // Логин
+    const submitButton = document.getElementById('submit-button');
+    disableSubmitButton(submitButton);
     mainApi.login(data.email, data.password)
     .then((res) => {
         localStorage.setItem('jwt', res.token);
@@ -123,6 +133,7 @@ function App() {
       handleError(err);
       setLoggedIn(false);
       navigate('/signin', {replace: true});
+      enableSubmitButton(submitButton);
     })
   }   
 

@@ -22,7 +22,6 @@ export default function InputAuth({
   }
 
   function checkInputValidity(e) {
-    console.log(e.target.validity.valid);
     if (!e.target.validity.valid) {
       setErrorMessage(e.target.validationMessage);
       setIsInputValid(false);
