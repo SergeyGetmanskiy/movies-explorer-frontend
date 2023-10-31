@@ -36,17 +36,17 @@ export default function InputProfile({
     <div className="input-edit-profile">
       <h3 className="text input-edit-profile__title">{ placeholder }</h3>
       <input
-      className="input-edit-profile__input"
-      name={name}
-      id={id}
-      type={type}
-      required={ required }
-      minLength={minLength}
-      maxLength={maxLength}
-      pattern={pattern}
-      value={value}
-      onInput={handleChange}
-      disabled={isInputDisabled}
+        className="input-edit-profile__input"
+        name={name}
+        id={id}
+        type={type}
+        required={ required }
+        minLength={minLength}
+        maxLength={maxLength}
+        pattern={pattern}
+        value={value}
+        onInput={handleChange}
+        disabled={isInputDisabled}
       />
       <span className={`text input-edit-profile__error ${ isInputValid ? '' : 'input-edit-profile__error_visible' }`}>
         {errorMessage}

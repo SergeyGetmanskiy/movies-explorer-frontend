@@ -231,55 +231,55 @@ function App() {
       <div className="app">
         { (pathname === "/" || pathname === "/movies" || pathname === "/saved-movies" || pathname === "/profile" ) && 
         <Header
-        width={ width }
-        loggedIn={ loggedIn }
-        pathname={ pathname }
-        onLogo={ handleLogoClick }
-        onMovies={ handleMoviesClick }
-        onSavedMovies={ handleSavedMoviesClick }  
-        onProfile={ handleProfileClick }
-        onRegister={ handleSignupClick }
-        onSignin={ handleSigninClick }     
+          width={ width }
+          loggedIn={ loggedIn }
+          pathname={ pathname }
+          onLogo={ handleLogoClick }
+          onMovies={ handleMoviesClick }
+          onSavedMovies={ handleSavedMoviesClick }  
+          onProfile={ handleProfileClick }
+          onRegister={ handleSignupClick }
+          onSignin={ handleSigninClick }     
         />}
         <Routes>
           <Route path="/" element={ <Main /> } />
           <Route path="/movies" element={ <ProtectedRoute
-          element={ Movies }
-          loggedIn={ loggedIn }
-          width={ width }
-          onCardLike={ handleCardLike }
-          moviesFound={ moviesFound }
-          setMoviesFound={ setMoviesFound }
-          savedMovies={ savedMovies } /> }
+            element={ Movies }
+            loggedIn={ loggedIn }
+            width={ width }
+            onCardLike={ handleCardLike }
+            moviesFound={ moviesFound }
+            setMoviesFound={ setMoviesFound }
+            savedMovies={ savedMovies } /> }
           /> 
           <Route path="/saved-movies" element={ <ProtectedRoute
-          element={ SavedMovies }
-          loggedIn={ loggedIn }
-          width={ width }
-          savedMovies={ savedMovies }
-          onCardDelete={ handleCardDelete } /> } 
+            element={ SavedMovies }
+            loggedIn={ loggedIn }
+            width={ width }
+            savedMovies={ savedMovies }
+            onCardDelete={ handleCardDelete } /> } 
           />
           <Route path="/profile" element={ <ProtectedRoute
-          element={ Profile }
-          loggedIn={ loggedIn }
-          onSignout={ handleSignOutClick }
-          onUpdate={ handleUpdateUser }
-          errorMessage={ errorMessage } /> } 
+            element={ Profile }
+            loggedIn={ loggedIn }
+            onSignout={ handleSignOutClick }
+            onUpdate={ handleUpdateUser }
+            errorMessage={ errorMessage } /> } 
           />
           { !loggedIn ? 
           <Route path="/signin" element={ <Login
-          onLogo={ handleLogoClick }
-          onSignup={ handleSignupClick }
-          onLogin={ handleLogin }
-          errorMessage={ errorMessage } /> } 
+            onLogo={ handleLogoClick }
+            onSignup={ handleSignupClick }
+            onLogin={ handleLogin }
+            errorMessage={ errorMessage } /> } 
           />
           : <Route path="/signin" element={ <Navigate to="/" replace /> } /> }
           { !loggedIn ?
           <Route path="/signup" element={ <Register
-          onLogo={ handleLogoClick }
-          onSignin={ handleSigninClick }
-          onRegister={ handleRegister }
-          errorMessage={ errorMessage } /> } 
+            onLogo={ handleLogoClick }
+            onSignin={ handleSigninClick }
+            onRegister={ handleRegister }
+            errorMessage={ errorMessage } /> } 
           />
           : <Route path="/signup" element={ <Navigate to="/" replace /> } /> }
           <Route path="*" element={ <PageNotFound goBack={ handleGoBack }/> } />

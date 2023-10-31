@@ -5,8 +5,8 @@ export default function Techs() {
       <hr className="horizontal-line techs__horizontal-line" />
       <h3 className="text text_narrow techs__feature-heading">7 технологий</h3>
       <p className="text text_narrow techs__feature-description">
-      На курсе веб-разработки мы освоили технологии,
-      которые применили в дипломном проекте.
+        На курсе веб-разработки мы освоили технологии,
+        которые применили в дипломном проекте.
       </p>
       <ul className="techs__tech-list">
         <li className="text text_narrow techs__tech-item">HTML</li>

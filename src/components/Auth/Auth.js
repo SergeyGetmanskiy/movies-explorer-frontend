@@ -4,16 +4,16 @@ import ButtonBar from "../UI/Buttons/ButtonBar/ButtonBar";
 import ApiErrorMessage from "../UI/ApiErrorMessage/ApiErrorMessage";
 
 export default function Auth({
-authHeading,
-submitButtonTitle,
-textButtonTitle,
-textButtonMessage,
-errorMessage,
-onLogo,
-onSubmit,
-isSubmitButtonActive,
-onTextButton,
-children }) {
+  authHeading,
+  submitButtonTitle,
+  textButtonTitle,
+  textButtonMessage,
+  errorMessage,
+  onLogo,
+  onSubmit,
+  isSubmitButtonActive,
+  onTextButton,
+  children }) {
 
   return (
     <main className="auth">

@@ -33,37 +33,37 @@ export default function NavigationPopup({ pathname, onMovies, onSavedMovies, onP
       <ul className="navigation-popup__container">
         <li className="navigation-popup__links">
           <ButtonNavigation
-          className={`navigation-popup__link ${ pathname === "/" && "navigation-popup__link_active" }`}
-          buttonTitle="Главная" 
-          onClick={ handleClickMain }
+            className={`navigation-popup__link ${ pathname === "/" && "navigation-popup__link_active" }`}
+            buttonTitle="Главная" 
+            onClick={ handleClickMain }
           />
         </li>
         <li className="navigation-popup__links">
           <ButtonNavigation
-          className={`navigation-popup__link ${ pathname === "/movies" && "navigation-popup__link_active" }`}
-          buttonTitle="Фильмы" 
-          onClick={ handleClickMovies } 
+            className={`navigation-popup__link ${ pathname === "/movies" && "navigation-popup__link_active" }`}
+            buttonTitle="Фильмы" 
+            onClick={ handleClickMovies } 
           />
         </li>
         <li className="navigation-popup__links">
           <ButtonNavigation 
-          className={`navigation-popup__link ${ pathname === "/saved-movies" && "navigation-popup__link_active" }`}
-          buttonTitle="Сохранённые фильмы" 
-          onClick={ handleClickSavedMovies } 
+            className={`navigation-popup__link ${ pathname === "/saved-movies" && "navigation-popup__link_active" }`}
+            buttonTitle="Сохранённые фильмы" 
+            onClick={ handleClickSavedMovies } 
           />
         </li>
         <li className="navigation-popup__links">
           <ButtonProfile 
-          className="navigation-popup__button-profile" 
-          pathname={ pathname } 
-          onClick={ handleClickProfile }
+            className="navigation-popup__button-profile" 
+            pathname={ pathname } 
+            onClick={ handleClickProfile }
           />
         </li>  
       </ul>  
       <ButtonClose
-      className="navigation-popup__button-close"
-      pathname={pathname}
-      onClick={handleClosePopup} 
+        className="navigation-popup__button-close"
+        pathname={pathname}
+        onClick={handleClosePopup} 
       />
     </section>
   )

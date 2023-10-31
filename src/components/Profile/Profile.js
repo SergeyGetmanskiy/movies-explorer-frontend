@@ -49,33 +49,33 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
       <form className="profile__container" noValidate="noValidate" onSubmit={ handleSubmit }>
         <h1 className="text profile__heading">{`Привет, ${currentUser.name}!`}</h1>
         <InputProfile
-        name="name"
-        id="profile-input-name"
-        type="text"
-        placeholder="Имя"
-        required={ true }
-        minLength={2}
-        maxLength={40}
-        value={ name }
-        pattern="[А-ЯЁа-яёA-Za-z\-\s]*"
-        setValue={setName}
-        setIsInputValid={setIsNameInputValid}
-        isInputValid={isNameInputValid}
-        isInputDisabled={isInputDisabled}
+          name="name"
+          id="profile-input-name"
+          type="text"
+          placeholder="Имя"
+          required={ true }
+          minLength={2}
+          maxLength={40}
+          value={ name }
+          pattern="[А-ЯЁа-яёA-Za-z\-\s]*"
+          setValue={setName}
+          setIsInputValid={setIsNameInputValid}
+          isInputValid={isNameInputValid}
+          isInputDisabled={isInputDisabled}
         />
         <hr className="profile__horizontal-line"></hr>
         <InputProfile
-        name="email"
-        id="profile-input-email"
-        type="email"
-        placeholder="Email"
-        required={ true }
-        value={ email }
-        pattern="^\S+@\S+\.\S+$"
-        setValue={setEmail}
-        setIsInputValid={setIsEmailInputValid}
-        isInputValid={isEmailInputValid}
-        isInputDisabled={isInputDisabled}
+          name="email"
+          id="profile-input-email"
+          type="email"
+          placeholder="Email"
+          required={ true }
+          value={ email }
+          pattern="^\S+@\S+\.\S+$"
+          setValue={setEmail}
+          setIsInputValid={setIsEmailInputValid}
+          isInputValid={isEmailInputValid}
+          isInputDisabled={isInputDisabled}
         />
         { isInputDisabled &&
           <ButtonText className={`profile__edit-button`} buttonTitle={"Редактировать"} onClick={ handleEditClick } />
