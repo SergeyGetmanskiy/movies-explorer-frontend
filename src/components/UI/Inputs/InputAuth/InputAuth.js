@@ -1,23 +1,24 @@
 import { useState } from "react";
 
-export default function InputAuth({ name,
-                                    id,
-                                    type,
-                                    placeholder,
-                                    required,
-                                    minLength,
-                                    maxLength,
-                                    value,
-                                    pattern,
-                                    setValue,
-                                    setIsInputValid,
-                                    isInputValid }) {
+export default function InputAuth({ 
+  name,
+  id,
+  type,
+  placeholder,
+  required,
+  minLength,
+  maxLength,
+  value,
+  pattern,
+  setValue,
+  setIsInputValid,
+  isInputValid }) {
 
   const [ errorMessage, setErrorMessage ] = useState('');
   
-  function handleChange(e) {
-    setValue(e.target.value);
+  function handleChange(e) {    
     checkInputValidity(e);
+    setValue(e.target.value);
   }
 
   function checkInputValidity(e) {
@@ -43,7 +44,8 @@ export default function InputAuth({ name,
         maxLength={maxLength}
         pattern={pattern}
         value={value}
-        onInput={handleChange}
+        onChange={handleChange}
+        autoComplete="on"
       />
       <span className={`text input-auth__error ${ isInputValid ? '' : 'input-auth__error_visible' }`}>{errorMessage}</span>
     </div>

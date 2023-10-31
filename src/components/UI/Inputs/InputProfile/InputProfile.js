@@ -1,18 +1,19 @@
 import { useState } from "react";
 
-export default function InputProfile({  name,
-                                        id,
-                                        type,
-                                        placeholder,
-                                        required,
-                                        minLength,
-                                        maxLength,
-                                        value,
-                                        pattern,
-                                        setValue,
-                                        setIsInputValid,
-                                        isInputValid,
-                                        isInputDisabled }) {
+export default function InputProfile({  
+  name,
+  id,
+  type,
+  placeholder,
+  required,
+  minLength,
+  maxLength,
+  value,
+  pattern,
+  setValue,
+  setIsInputValid,
+  isInputValid,
+  isInputDisabled }) {
 
   const [ errorMessage, setErrorMessage ] = useState('');
   

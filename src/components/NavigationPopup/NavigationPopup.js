@@ -54,16 +54,16 @@ export default function NavigationPopup({ pathname, onMovies, onSavedMovies, onP
         </li>
         <li className="navigation-popup__links">
           <ButtonProfile 
-              className="navigation-popup__button-profile" 
-              pathname={ pathname } 
-              onClick={ handleClickProfile }
+            className="navigation-popup__button-profile" 
+            pathname={ pathname } 
+            onClick={ handleClickProfile }
           />
         </li>  
       </ul>  
       <ButtonClose
-          className="navigation-popup__button-close"
-          pathname={pathname}
-          onClick={handleClosePopup} 
+        className="navigation-popup__button-close"
+        pathname={pathname}
+        onClick={handleClosePopup} 
       />
     </section>
   )

@@ -1,4 +1,5 @@
 .app {
+  min-height: 100vh;
   max-width: 1280px;
   display: flex;
   flex-direction: column;
@@ -17,6 +18,11 @@ a,button:hover {
 input[type='checkbox']+label:hover {
   cursor: url(../../images/pointer.svg) 10 1, default;
   opacity: .7;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 100px #2F2F2F inset;
+  -webkit-text-fill-color: #fff;
 }
 
 .text {

@@ -48,5 +48,7 @@
 
 @import url(./components/PageNotFound/PageNotFound.css);
 
+@import url(./components/InfoPopup/InfoPopup.css);
+
 @import url(./components/Footer/Footer.css);
 

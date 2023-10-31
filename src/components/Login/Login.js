@@ -3,30 +3,34 @@ import { useState } from "react";
 import Auth from "../Auth/Auth";
 import InputAuth from "../UI/Inputs/InputAuth/InputAuth";
 
-export default function Login({ onLogo, onSignup }) {
+export default function Login({ onLogo, onSignup, onLogin, errorMessage }) {
 
-  const [ email, setEmail ] = useState("pochta@yandex.ru");
-  const [ password, setPassword ] = useState("12345678");
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassword ] = useState("");
 
   const [ isEmailInputValid, setIsEmailInputValid ] = useState(true);
   const [ isPasswordInputValid, setIsPasswordInputValid ] = useState(false);
 
-  const [ errorMessage, setErrorMessage ] = useState("Вы ввели неправильный логин или пароль. ");
-
   function handleSubmit(e) {
- 
+    e.preventDefault();
+    const data = {
+      email: e.target[1].value,
+      password: e.target[2].value,
+    }
+    onLogin(data);
   }
 
   return (
-    <Auth authHeading="Рады видеть!"
-          submitButtonTitle="Войти"
-          textButtonTitle="Регистрация"
-          textButtonMessage="Ещё не зарегистрированы?"
-          errorMessage={ errorMessage }
-          onLogo={ onLogo }
-          onSubmit={ handleSubmit }
-          isSubmitButtonActive={ isEmailInputValid && isPasswordInputValid }
-          onTextButton={ onSignup }
+    <Auth
+      authHeading="Рады видеть!"
+      submitButtonTitle="Войти"
+      textButtonTitle="Регистрация"
+      textButtonMessage="Ещё не зарегистрированы?"
+      errorMessage={ errorMessage }
+      onLogo={ onLogo }
+      onSubmit={ handleSubmit }
+      isSubmitButtonActive={ isEmailInputValid && isPasswordInputValid }
+      onTextButton={ onSignup }
     >
       <InputAuth
         name="email"
@@ -48,7 +52,7 @@ export default function Login({ onLogo, onSignup }) {
         required={ true }
         minLength={8}
         value={ password }
-        pattern="^[A-Za-z0-9]$"
+        pattern="^[A-Za-z0-9]*"
         setValue={setPassword}
         setIsInputValid={setIsPasswordInputValid}
         isInputValid={ isPasswordInputValid }
