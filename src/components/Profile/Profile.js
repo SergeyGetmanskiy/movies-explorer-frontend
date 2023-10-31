@@ -12,13 +12,11 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
 
   const [ isInputDisabled, setIsInputDisabled ] = useState(true);
 
-  const [ name, setName ] = useState("");
-  const [ email, setEmail ] = useState("");
+  const [ name, setName ] = useState('');
+  const [ email, setEmail ] = useState('');
 
   const [ isNameInputValid, setIsNameInputValid ] = useState(true);
   const [ isEmailInputValid, setIsEmailInputValid ] = useState(true);
-
-  const [ isButtonActive, setIsButtonActive ] = useState(false);
 
   function handleEditClick() {
     setIsInputDisabled(false);
@@ -26,7 +24,6 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsButtonActive(false);
     onUpdate({
       name: name,
       email: email,
@@ -38,16 +35,10 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
     setEmail(currentUser.email);
   }, [currentUser]); 
 
-  useEffect(() => {
-    ((name !== currentUser.name || email !== currentUser.email) && (isNameInputValid && isEmailInputValid))
-    ? setIsButtonActive(true) 
-    : setIsButtonActive(false);
-  }, [name, email ]); 
-
   return (
     <main className="profile">
       <form className="profile__container" noValidate="noValidate" onSubmit={ handleSubmit }>
-        <h1 className="text profile__heading">{`Привет, ${currentUser.name}!`}</h1>
+        <h1 className="text profile__heading">{`Привет, ${ name }!`}</h1>
         <InputProfile
           name="name"
           id="profile-input-name"
@@ -83,7 +74,11 @@ export default function Profile({ onSignout, onUpdate, errorMessage  }) {
         { isInputDisabled ?
           <ButtonText className={`profile__signout-button`} buttonTitle={"Выйти из аккаунта"} onClick={ onSignout } />
           :
-          <ButtonBar className="profile__button-bar" buttonTitle="Сохранить" isButtonActive={ isButtonActive } >
+          <ButtonBar className="profile__button-bar" buttonTitle="Сохранить" isButtonActive={
+            (name !== currentUser.name || email !== currentUser.email) && (isNameInputValid && isEmailInputValid) ?
+            true :
+            false
+            } >
             <ApiErrorMessage errorMessage={errorMessage}/>
           </ButtonBar>
         }        
