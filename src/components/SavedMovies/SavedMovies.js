@@ -49,8 +49,8 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
     displayMovies(found, []);
   }
 
-  useEffect(() => {                                         // Вывод сохраненных фильмов в блок результатов при изменении 
-    handleMovieSearch(savedMovies, searchText);             // списка сохраненных фильмов или поискового запроса 
+  useEffect(() => {                                     // Вывод сохраненных фильмов в блок результатов при изменении 
+    displayMovies(savedMovies, searchText);             // списка сохраненных фильмов или поискового запроса 
   }, [savedMovies, searchText])
 
   return (

@@ -64,7 +64,7 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
         setIsLoading(false);
         const newMovies = () => movies.map((movie) => { return {
           likes: false,
-          _id: movie.id,
+          movieId: movie.id,
           imageFull: `https://api.nomoreparties.co${movie.image.url}`,
           thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
           ...movie

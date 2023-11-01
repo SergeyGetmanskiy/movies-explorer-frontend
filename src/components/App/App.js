@@ -151,10 +151,12 @@ function App() {
   function handleCardLike(card) {                         // Обработчик клика по лайку
     card.movieId = card.id;
     if(!card.likes) {
+      console.log(card);
       mainApi.postUserMovie(card).then((card) => {
+        console.log(card);
         setSavedMovies([card.movie, ...savedMovies]);
         const updatedMoviesList = [...moviesFound];
-        const updatedMovie = updatedMoviesList.find(movie => movie._id === card.movie.movieId);
+        const updatedMovie = updatedMoviesList.find(movie => movie.movieId === card.movie.movieId);
         updatedMovie.likes = true;
         setMoviesFound(updatedMoviesList);
         localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
