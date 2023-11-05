@@ -86,7 +86,7 @@ class MainApi {
     })})
     .then(this._checkServerResponse)}
 
-  getMoviesList() {
+  getMoviesList(currentUser) {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
       headers: {
@@ -109,13 +109,12 @@ class MainApi {
         duration: data.duration,
         year: data.year,
         description: data.description,
-        imageFull: data.imageFull,
+        image: data.image,
         trailerLink: data.trailerLink,
         thumbnail: data.thumbnail,
         movieId: data.movieId,
         nameRU: data.nameRU,
         nameEN: data.nameEN,
-        likes: true,
       })})
     .then(this._checkServerResponse)
   }
@@ -133,5 +132,5 @@ class MainApi {
 }; 
 
 export const mainApi = new MainApi({
-  baseUrl: 'https://api.movies.sgetmansky.nomoredomainsrocks.ru'
+  baseUrl: 'http://localhost:3000'
 }); 

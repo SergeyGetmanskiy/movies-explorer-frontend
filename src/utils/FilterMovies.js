@@ -17,20 +17,21 @@ export function filterMovies(movies, searchText, isChecked) {
   };
 }
 
-export function checkLikes(moviesTotal, moviesSaved) {
+export function checkLikes(moviesTotal, moviesSaved, currentUserId) {
   if(moviesSaved.length === 0) {
     return moviesTotal
   } else {
     const moviesSavedIds = moviesSaved.map(movie => movie.movieId);
     const moviesToReturn = moviesTotal.map((movie) => {
-      const isLiked = moviesSavedIds.includes(movie.id);
-      movie.likes = isLiked;
+      const isLiked = moviesSavedIds.includes(movie.movieId);
+      if(isLiked) {
+        return { ...movie, likes: [ currentUserId  ] }
+      }
       return movie
     })
     return moviesToReturn
   }
 }
-
 
 export function getMoviesToDisplay(moviesTotal, moviesDisplayed, width) {
   let requiredLength;
@@ -51,7 +52,7 @@ export function getMoviesToDisplay(moviesTotal, moviesDisplayed, width) {
       isMore: true,
     }
   } else if ((moviesTotal.length > requiredLength) && (moviesDisplayed.length !== 0)) {
-      if((moviesTotal.length - (moviesDisplayed.length) <= cardsInARow)) {
+      if((moviesTotal.length - moviesDisplayed.length) <= cardsInARow) {
         return {
           movies: moviesTotal.slice(0, moviesDisplayed.length + (moviesTotal.length - moviesDisplayed.length)),
           isMore: false,

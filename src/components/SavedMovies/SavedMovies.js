@@ -30,7 +30,6 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
   function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
-
   }
  
   function handleSearchClick(query) {                        // Обработчик по клику "Поиск"
@@ -49,9 +48,9 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
     displayMovies(found, []);
   }
 
-  useEffect(() => {                                     // Вывод сохраненных фильмов в блок результатов при изменении 
-    displayMovies(savedMovies, searchText);             // списка сохраненных фильмов или поискового запроса 
-  }, [savedMovies, searchText])
+  useEffect(() => {                             // Вывод сохраненных фильмов в блок результатов при изменении 
+    displayMovies(savedMovies, []);             // списка сохраненных фильмов или поискового запроса 
+  }, [savedMovies])
 
   return (
     <main className="movies">

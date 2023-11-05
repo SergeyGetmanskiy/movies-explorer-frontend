@@ -149,47 +149,43 @@ function App() {
   }
                                                             
   function handleCardLike(card) {                         // Обработчик клика по лайку
-    card.movieId = card.id;
-    if(!card.likes) {
-      console.log(card);
-      mainApi.postUserMovie(card).then((card) => {
-        console.log(card);
-        setSavedMovies([card.movie, ...savedMovies]);
-        const updatedMoviesList = [...moviesFound];
-        const updatedMovie = updatedMoviesList.find(movie => movie.movieId === card.movie.movieId);
-        updatedMovie.likes = true;
-        setMoviesFound(updatedMoviesList);
-        localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
+    const isLiked = card.likes.some(i => i === currentUser._id);
+    if(!isLiked) {
+      mainApi.postUserMovie(card).then((cardPosted) => {
+        setSavedMovies([cardPosted.movie, ...savedMovies]);
+        const nextMoviesFound = moviesFound.map((movie) => {
+          const isMatched = movie.movieId === cardPosted.movie.movieId;
+          if(isMatched) {
+            return { ...movie, likes: [ currentUser._id ] }
+          } 
+          return movie
+        });
+        setMoviesFound(nextMoviesFound);
+        localStorage.setItem('movies', JSON.stringify(nextMoviesFound));
       })
         .catch((err) => {
           console.log(err);
         })
     } else {
-      const updatedSavedMovies = [...savedMovies];
-      const updatedSavedMovie = updatedSavedMovies.find(movie => movie.movieId === card.id);
-      handleCardDelete(updatedSavedMovie._id, card.id);
+      const { _id } = savedMovies.find(movie => movie.movieId === card.movieId);
+      handleCardDelete(_id, card.movieId);
     }
   }
 
   function handleCardDelete(cardId, movieId) {            // Обработчик клика по крестику и повторного клика по лайку
-    if(moviesFound.length > 0) {
-      const updatedMoviesList = [...moviesFound];
-      const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
-      if(updatedMovie !== undefined) {
-        updatedMovie.likes = false;
-        setMoviesFound(updatedMoviesList);
-        localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
-      }
+    mainApi.deleteUserMovie(cardId).then((deletedMovie) => {
+      setSavedMovies(savedMovies.filter((movie) => movie._id !== deletedMovie.movie._id));
+      if(moviesFound.length > 0) {
+        const nextMoviesFound = moviesFound.map((movie) => {
+          const isMatched = movie.movieId === movieId;
+          if(isMatched) {
+            return { ...movie, likes: [] }
+          } 
+          return movie
+        });
+        setMoviesFound(nextMoviesFound);
+        localStorage.setItem('movies', JSON.stringify(nextMoviesFound));
     }
-    mainApi.deleteUserMovie(cardId).then(() => {
-      setSavedMovies(savedMovies.filter((card) => card._id !== cardId));
-      const updatedMoviesList = [...moviesFound];
-      const updatedMovie = updatedMoviesList.find(movie => movie.id === movieId);
-      if(updatedMovie !== undefined) {
-        updatedMovie.likes = false;
-        setMoviesFound(updatedMoviesList);
-        localStorage.setItem('movies', JSON.stringify(updatedMoviesList));
-      }
   })
     .catch((err) => {
       console.log(err);
@@ -222,11 +218,6 @@ function App() {
     } 
   checkToken();
   }, []) 
-
-  useEffect(() => {
-    
-  })
-
  
   return (
     <CurrentUserContext.Provider value={currentUser}>

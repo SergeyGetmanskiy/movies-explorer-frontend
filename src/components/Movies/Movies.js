@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 
+import { CurrentUserContext } from "../../context/CurrentUserContext"
 import SearchForm from "./SearchForm/SearchForm"
 import Preloader from "./Preloader/Preloader"
 import MoviesCardList from "./MoviesCardList/MoviesCardList"
@@ -10,6 +11,8 @@ import { filterMovies, checkLikes, getMoviesToDisplay } from '../../utils/Filter
 import { moviesApi } from '../../utils/MoviesApi';
 
 export default function Movies({ width, onCardLike, moviesFound, setMoviesFound, savedMovies }) {
+
+  const currentUser = useContext(CurrentUserContext);
   
   const [ movies, setMovies ] = useState([]);
 
@@ -25,8 +28,7 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
 
   const [ errorMessage, setErrorMessage ] = useState('');
 
-  function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
-    
+  function handleMovieSearch(movies, searchText) {            // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
       setMoviesFound(found);
@@ -41,9 +43,9 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
     }
   }
 
-  function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
-    const moviesCheckedforLikes = checkLikes(found, savedMovies);
-    const moviesToDisplay = getMoviesToDisplay(moviesCheckedforLikes, displayed, width);
+  function displayMovies(found, displayed) {                  // Вывод фильмов в блок результатов
+    const moviesCheckedForLikes = checkLikes(found, savedMovies, currentUser._id);
+    const moviesToDisplay = getMoviesToDisplay(moviesCheckedForLikes, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
     setIsMore(moviesToDisplay.isMore);
     if(moviesToDisplay.movies.length > 0) {
@@ -52,7 +54,6 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
       setIsFound(false);
     }
   }
-
  
   function handleSearchClick(query) {                        // Обработчик по клику "Поиск"
     setSearchText(query);
@@ -62,16 +63,22 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
       moviesApi.getMovies()                                  // Загрузка фильмов и поиск при первом валидном поисковом запросе
       .then((movies) => {
         setIsLoading(false);
-        const newMovies = () => movies.map((movie) => { return {
-          likes: false,
+        const downloadedMovies = movies.map((movie) => { return {
+          country: movie.country,
+          director: movie.director,
+          duration: movie.duration,
+          year: movie.year,
+          description: movie.description,
+          image: `https://api.nomoreparties.co${movie.image.url}`,
+          trailerLink: movie.trailerLink,
+          thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
           movieId: movie.id,
-          imageFull: `https://api.nomoreparties.co${movie.image.url}`,
-          thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`, 
-          ...movie
+          nameRU: movie.nameRU,
+          nameEN: movie.nameEN,
+          likes: [], 
         }});
-        const moviesCheckedforLikes = checkLikes(newMovies(), savedMovies);
-        setMovies(moviesCheckedforLikes);
-        handleMovieSearch(moviesCheckedforLikes, query);
+        setMovies(downloadedMovies);
+        handleMovieSearch(downloadedMovies, query);
       })
       .catch((err) => {
         console.log(err);
@@ -93,7 +100,7 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
     } else {
       setIsFound(true);
     }
-    displayMovies(found, []);
+    displayMovies(found, moviesDisplayed);
   }
 
   function handleMoreMoviesClick() {                         // Обработчик по клику "Ещё"
@@ -106,20 +113,23 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
       const text = JSON.parse(localStorage.getItem('searchText'));
       const checked = JSON.parse(localStorage.getItem('isChecked'));
       if (movies) {
-        setIsFound(true);
-        setMoviesFound(movies);
-        setSearchText(text);
-        setIsChecked(checked);
         const found = filterMovies(movies, text, checked);
-        displayMovies(found, [])
+        displayMovies(found, moviesDisplayed)
       }
     } 
     checkLocalStorage();
   }, [])
 
   useEffect(() => {
-    displayMovies(moviesFound, [])
-  }, [moviesFound])
+    if(isMore) {
+      const nextMoviesDisplayed = moviesFound.filter((movie, index) => index < moviesDisplayed.length);
+      setMoviesDisplayed(nextMoviesDisplayed);
+    }
+     else {
+      const found = filterMovies(moviesFound, searchText, isChecked);
+      displayMovies(found, moviesDisplayed);
+    }
+  }, [moviesFound]) 
 
   return (
     <main className="movies">
