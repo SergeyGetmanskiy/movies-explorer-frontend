@@ -16,7 +16,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
 
   const errorMessage = NOTHING_FOUND_ERROR_MESSAGE;
 
-  function handleMovieSearch(movies, searchText) {     // Фильтрация фильмов
+  function handleMovieSearch(movies, searchText) {            // Фильтрация фильмов
     const found = filterMovies(movies, searchText, isChecked);
     if(found.length > 0) {
       setIsFound(true);
@@ -27,7 +27,7 @@ export default function SavedMovies({ width, onCardDelete, savedMovies }) {
     }
   }
 
-  function displayMovies(found, displayed) {                    // Вывод фильмов в блок результатов
+  function displayMovies(found, displayed) {                 // Вывод фильмов в блок результатов
     const moviesToDisplay = getMoviesToDisplay(found, displayed, width);
     setMoviesDisplayed(moviesToDisplay.movies);
   }

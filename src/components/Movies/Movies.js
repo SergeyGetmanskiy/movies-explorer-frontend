@@ -15,7 +15,6 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
   const currentUser = useContext(CurrentUserContext);
   
   const [ movies, setMovies ] = useState([]);
-
   const [ moviesDisplayed, setMoviesDisplayed ] = useState([]);
 
   const [ searchText, setSearchText ] = useState('');
@@ -107,14 +106,14 @@ export default function Movies({ width, onCardLike, moviesFound, setMoviesFound,
     displayMovies(moviesFound, moviesDisplayed);
   }
 
-  useEffect(() => {                                         // Проверка localStorage 
+  useEffect(() => {                                         // Проверка localStorage при переходе на страницу "Фильмы"
     const checkLocalStorage = () => {
       const movies = JSON.parse(localStorage.getItem('movies'));
       const text = JSON.parse(localStorage.getItem('searchText'));
       const checked = JSON.parse(localStorage.getItem('isChecked'));
       if (movies) {
-        const found = filterMovies(movies, text, checked);
-        displayMovies(found, moviesDisplayed)
+      setIsChecked(checked);
+      handleMovieSearch(movies, text);
       }
     } 
     checkLocalStorage();

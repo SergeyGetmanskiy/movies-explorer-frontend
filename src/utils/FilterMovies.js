@@ -1,7 +1,7 @@
 export function filterMovies(movies, searchText, isChecked) {
   let result = movies.filter(
-  (movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()) ||
-  movie.nameEN.toLowerCase().includes(searchText.toLowerCase())
+    (movie) => movie.nameRU.toLowerCase().includes(searchText.toLowerCase()) ||
+    movie.nameEN.toLowerCase().includes(searchText.toLowerCase())
   );
   if(result.length > 0) {
     if(isChecked) {

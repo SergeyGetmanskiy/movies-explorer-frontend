@@ -86,7 +86,7 @@ class MainApi {
     })})
     .then(this._checkServerResponse)}
 
-  getMoviesList(currentUser) {
+  getMoviesList() {
     return fetch(`${this._url}/movies`, {
       method: 'GET',
       headers: {
@@ -132,5 +132,5 @@ class MainApi {
 }; 
 
 export const mainApi = new MainApi({
-  baseUrl: 'http://localhost:3000'
+  baseUrl: 'https://movies.sgetmansky.nomoredomainsrocks.ru'
 }); 
