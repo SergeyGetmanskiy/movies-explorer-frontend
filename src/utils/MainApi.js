@@ -132,5 +132,5 @@ class MainApi {
 }; 
 
 export const mainApi = new MainApi({
-  baseUrl: 'https://movies.sgetmansky.nomoredomainsrocks.ru'
+  baseUrl: 'https://api.movies.sgetmansky.nomoredomainsrocks.ru'
 }); 
